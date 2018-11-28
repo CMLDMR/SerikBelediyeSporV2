@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++17
+CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -26,7 +26,9 @@ DEPENDPATH += $$PWD/../../Libraries/Wt-4.0.4-msvs2017-x64/include
 
 HEADERS += \
     mainapplication.h \
-    resource.h
+    resource.h \
+    ../url.h \
+    mongocxx.h
 
 
 
@@ -41,5 +43,20 @@ DEPENDPATH += $$PWD/mongo/include/bsoncxx/v_noabi
 
 win32: LIBS += -L$$PWD/mongo/lib/ -lmongocxx
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/mongo/lib/ -lmongocxx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/mongo/lib/ -lmongocxxd
+else:unix: LIBS += -L$$PWD/mongo/lib/ -lmongocxx
+
 INCLUDEPATH += $$PWD/mongo/include/mongocxx/v_noabi
 DEPENDPATH += $$PWD/mongo/include/mongocxx/v_noabi
+
+
+
+
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0/lib64-msvc-14.0/' -lboost_atomic-vc140-mt-gd-x64-1_68
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0/lib64-msvc-14.0/' -lboost_atomic-vc140-mt-gd-x64-1_68d
+
+INCLUDEPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'
+DEPENDPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'

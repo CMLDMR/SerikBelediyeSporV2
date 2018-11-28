@@ -33,6 +33,7 @@ int main()
     mongocxx::instance ins{};
 
 
+
     int argc = 6;
     auto argv = std::unique_ptr<char*[]>(new char*[argc]);
 
@@ -43,7 +44,6 @@ int main()
     argv[3] =  (char*)"--deploy-path=/";
     argv[4] =  (char*)"--docroot=docroot";
     argv[5] =  (char*)"--approot=approot";
-//    argv[6] =  (char*)"--config=approot/wt_config.xml";
 
 
 
