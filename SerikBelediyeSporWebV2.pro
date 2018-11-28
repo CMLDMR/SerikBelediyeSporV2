@@ -41,5 +41,5 @@ DEPENDPATH += $$PWD/mongo/include/bsoncxx/v_noabi
 
 win32: LIBS += -L$$PWD/mongo/lib/ -lmongocxx
 
-INCLUDEPATH += $$PWD/mongo/include
-DEPENDPATH += $$PWD/mongo/include
+INCLUDEPATH += $$PWD/mongo/include/mongocxx/v_noabi
+DEPENDPATH += $$PWD/mongo/include/mongocxx/v_noabi

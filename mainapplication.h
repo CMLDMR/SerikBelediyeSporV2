@@ -1,12 +1,18 @@
 #ifndef MAINAPPLICATION_H
 #define MAINAPPLICATION_H
 
-#include <QtCore/qglobal.h>
+#include <Wt/WApplication.h>
+#include <Wt/WEnvironment.h>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WText.h>
+
+
+using namespace Wt;
 
 class MainApplication : public WApplication
 {
 public:
-MainApplication();
+MainApplication(const WEnvironment& env);
 };
 
 #endif // MAINAPPLICATION_H
