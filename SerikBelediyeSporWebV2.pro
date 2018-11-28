@@ -1,11 +1,19 @@
 TEMPLATE = app
-CONFIG += console c++14
+CONFIG += console
+CONFIG += c++1z
 CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    mainapplication.cpp
+    mainapplication.cpp \
+    src/containerwidget.cpp \
+    src/header.cpp
+
+
+
+#QMAKE_CXXFLAGS += -Wunused-function
+
 
 
 
@@ -28,9 +36,14 @@ HEADERS += \
     mainapplication.h \
     resource.h \
     ../url.h \
-    mongocxx.h
+    mongocxx.h \
+    ../../Comman/bootstrap.h \
+    ../../Comman/inlinestyle.h \
+    src/containerwidget.h \
+    src/header.h
 
-
+INCLUDEPATH += $$PWD/../../Comman
+DEPENDPATH += $$PWD/../../Comman
 
 
 win32: LIBS += -L$$PWD/mongo/lib/ -lbsoncxx

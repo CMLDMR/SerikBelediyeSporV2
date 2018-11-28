@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.7.84, 2018-11-28T14:55:50. -->
+<!-- Written by QtCreator 4.7.84, 2018-11-28T17:46:04. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -191,6 +191,7 @@
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseTerminal">false</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/project/Yonetim-yazilimi/SerikBelediyeSporWebV2/build-SerikBelediyeSporWebV2-Desktop_Qt_5_12_0_MSVC2017_64bit3-Release</value>
    </valuemap>
