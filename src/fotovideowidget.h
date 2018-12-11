@@ -1,12 +1,12 @@
 #ifndef FOTOVIDEOWIDGET_H
 #define FOTOVIDEOWIDGET_H
 
-#include <QtCore/qglobal.h>
+#include "containerwidget.h"
 
 class FotoVideoWidget : public ContainerWidget
 {
 public:
-FotoVideoWidget();
+    FotoVideoWidget(mongocxx::database* _db);
 };
 
 #endif // FOTOVIDEOWIDGET_H

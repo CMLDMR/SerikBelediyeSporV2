@@ -77,15 +77,33 @@ void ContainerWidget::setLeftSide(int inpixel)
     this->updateStyle();
 }
 
+void ContainerWidget::setLeftSide(double inPercent)
+{
+    mLeftSpace = "left:"+std::to_string(inPercent)+"%;";
+    this->updateStyle();
+}
+
 void ContainerWidget::setTopSide(int inpixel)
 {
     mRightSpace = "top:"+std::to_string(inpixel)+"px;";
     this->updateStyle();
 }
 
+void ContainerWidget::setTopSide(double inPercent)
+{
+    mRightSpace = "top:"+std::to_string(inPercent)+"%;";
+    this->updateStyle();
+}
+
 void ContainerWidget::setRightSide(int pixel)
 {
     mTopSpace = "right:"+std::to_string(pixel)+"px;";
+    updateStyle();
+}
+
+void ContainerWidget::setRightSide(double inPercet)
+{
+    mTopSpace = "right:"+std::to_string(inPercet)+"%;";
     updateStyle();
 }
 

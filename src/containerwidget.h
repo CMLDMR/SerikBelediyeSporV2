@@ -4,6 +4,9 @@
 #include <Wt/WContainerWidget.h>
 #include <Wt/WText.h>
 #include <Wt/WCssDecorationStyle.h>
+#include <Wt/WStackedWidget.h>
+#include <Wt/WSpinBox.h>
+#include <Wt/WVBoxLayout.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
@@ -51,16 +54,34 @@ void setBorder(StandardColor color = StandardColor::White );
 void setLeftSide( int inpixel = 0 );
 
 ///
+/// \brief setLeftSide
+/// \param inPercent
+/// set Left Side Space if Container Aligned in ABSOLUTE|STATIC|FIXED
+void setLeftSide( double inPercent = 0.0 );
+
+///
 /// \brief setTopSide
 /// \param inpixel
 /// set Top side space if Container Aligned in ABSOLUTE|STATIC|FIXED
 void setTopSide( int inpixel = 0 );
 
 ///
+/// \brief setTopSide
+/// \param inPercent
+/// set Top side Space if Container Aligned ABSOLUTE|STATIC|FIXED
+void setTopSide( double inPercent = 0.0 );
+
+///
 /// \brief setRightSide
 /// \param pixel
 /// set Right side Space if Container Aligned in ABSOLUTE|STATIC|FIXED
 void setRightSide( int pixel = 0 );
+
+///
+/// \brief setRightSide
+/// \param inPercet
+/// set Right side Space if Container Aligned in ABSOLUTE|STATIC|FIXED
+void setRightSide( double inPercet = 0 );
 
 ///
 /// \brief setBottomSide

@@ -1,12 +1,21 @@
 #ifndef HABERDUYURUCAPS_H
 #define HABERDUYURUCAPS_H
 
-#include <QtCore/qglobal.h>
+
+#include "containerwidget.h"
 
 class HaberDuyuruCaps : public ContainerWidget
 {
 public:
-HaberDuyuruCaps();
+    HaberDuyuruCaps(mongocxx::database* _db);
+};
+
+
+
+class HaberDuyuruCapsItem : public ContainerWidget
+{
+public:
+    HaberDuyuruCapsItem(mongocxx::database* _db , bool m_Haber = false );
 };
 
 #endif // HABERDUYURUCAPS_H

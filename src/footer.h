@@ -1,7 +1,6 @@
 #ifndef FOOTER_H
 #define FOOTER_H
 
-#include <QtCore/qglobal.h>
 
 
 #include <Wt/WContainerWidget.h>

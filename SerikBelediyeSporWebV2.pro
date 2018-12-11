@@ -8,7 +8,14 @@ SOURCES += \
         main.cpp \
     mainapplication.cpp \
     src/containerwidget.cpp \
-    src/header.cpp
+    src/header.cpp \
+    src/body.cpp \
+    src/slider.cpp \
+    src/haberduyurucaps.cpp \
+    src/takimlarwidget.cpp \
+    src/footer.cpp \
+    src/fotovideowidget.cpp \
+    src/iletisimwidget.cpp
 
 
 
@@ -40,7 +47,14 @@ HEADERS += \
     ../../Comman/bootstrap.h \
     ../../Comman/inlinestyle.h \
     src/containerwidget.h \
-    src/header.h
+    src/header.h \
+    src/body.h \
+    src/slider.h \
+    src/haberduyurucaps.h \
+    src/takimlarwidget.h \
+    src/footer.h \
+    src/fotovideowidget.h \
+    src/iletisimwidget.h
 
 INCLUDEPATH += $$PWD/../../Comman
 DEPENDPATH += $$PWD/../../Comman
@@ -73,3 +87,6 @@ DEPENDPATH += $$PWD/mongo/include/mongocxx/v_noabi
 
 INCLUDEPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'
 DEPENDPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'
+
+DISTFILES += \
+    ../build-SerikBelediyeSporWebV2-Desktop_Qt_5_12_0_MSVC2017_64bit3-Release/docroot/css/slider.css

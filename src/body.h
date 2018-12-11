@@ -1,12 +1,18 @@
 #ifndef BODY_H
 #define BODY_H
 
-#include <QtCore/qglobal.h>
+#include "containerwidget.h"
 
 class Body : public ContainerWidget
 {
 public:
-Body();
+    Body(mongocxx::database* _db);
+
+
+    void initBody();
+
+private:
+    WContainerWidget* mMainContainer;
 };
 
 #endif // BODY_H

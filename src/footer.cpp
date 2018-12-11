@@ -1,4 +1,5 @@
 #include "footer.h"
+#include "inlinestyle.h"
 
 Footer::Footer::Footer()
     :WContainerWidget()
@@ -6,12 +7,14 @@ Footer::Footer::Footer()
 
     addStyleClass(Bootstrap::Grid::container_fluid);
 
-    addStyleClass("footerWidget");
+//    addStyleClass("footerWidget");
 
     mMainContainerWidget = addWidget(cpp14::make_unique<WContainerWidget>());
 
     mMainContainerWidget->addStyleClass(Bootstrap::Grid::row);
     mMainContainerWidget->setContentAlignment(AlignmentFlag::Center);
+    mMainContainerWidget->setAttributeValue(Style::style,Style::background::color::rgb(0,25,0));
+
 
     {
         auto container = mMainContainerWidget->addWidget(cpp14::make_unique<WContainerWidget>());
@@ -19,7 +22,8 @@ Footer::Footer::Footer()
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_12+Bootstrap::Grid::Medium::col_md_12+Bootstrap::Grid::Small::col_sm_12+Bootstrap::Grid::ExtraSmall::col_xs_12);
 
         layout->addStretch(1);
-        layout->addWidget(cpp14::make_unique<WText>("Serik Belediyesi Spor İşleri Müdürlüğü"));
+        auto text = layout->addWidget(cpp14::make_unique<WText>("Serik Belediye Spor"));
+        text->setAttributeValue(Style::style,Style::color::rgb("255,255,255"));
         layout->addStretch(1);
 
     }
@@ -30,7 +34,8 @@ Footer::Footer::Footer()
         auto layout = container->setLayout(cpp14::make_unique<WHBoxLayout>());
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_12+Bootstrap::Grid::Medium::col_md_12+Bootstrap::Grid::Small::col_sm_12+Bootstrap::Grid::ExtraSmall::col_xs_12);
         auto text = layout->addWidget(cpp14::make_unique<WText>("Bu Web Sayfası Serik Belediyesi Bilgi İşlem Müdürlüğü Tarafından Açık Kaynak Kodlu Olarak Geliştirilmektedir."));
-        text->addStyleClass("footerText");
+//        text->addStyleClass("footerText");
+        text->setAttributeValue(Style::style,Style::color::rgb("255,255,255"));
     }
 
     {
@@ -39,7 +44,8 @@ Footer::Footer::Footer()
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_12+Bootstrap::Grid::Medium::col_md_12+Bootstrap::Grid::Small::col_sm_12+Bootstrap::Grid::ExtraSmall::col_xs_12);
 
         layout->addStretch(1);
-        layout->addWidget(cpp14::make_unique<WText>("© Copyright 2018  "));
+        auto text = layout->addWidget(cpp14::make_unique<WText>("© Copyright 2018  "));
+        text->setAttributeValue(Style::style,Style::color::rgb("255,255,255"));
         {
             Wt::WLink link = Wt::WLink("http://www.webtoolkit.eu/");
             link.setTarget(Wt::LinkTarget::NewWindow);
