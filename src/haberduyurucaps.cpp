@@ -47,6 +47,8 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
                                      +Bootstrap::Grid::Small::col_sm_5
                                      +Bootstrap::Grid::ExtraSmall::col_xs_12);
                 container->setHeight(WLength("100%"));
+                this->setDuyuruOid(container->duyuruOid());
+                container->clicked().connect(this,&HaberDuyuruCaps::emitDuyuruOid);
         }
 
     }
@@ -69,6 +71,27 @@ void HaberDuyuruCaps::emitHaberOid()
 
 }
 
+void HaberDuyuruCaps::emitDuyuruOid()
+{
+    std::cout << __LINE__ << " " << __FUNCTION__ << " " << this->duyuruOid() << std::endl;
+    this->_ClickDuyuru.emit(this->duyuruOid());
+}
+
+std::string HaberDuyuruCaps::duyuruOid() const
+{
+    return mDuyuruOid;
+}
+
+void HaberDuyuruCaps::setDuyuruOid(const std::string &duyuruOid)
+{
+    mDuyuruOid = duyuruOid;
+}
+
+Signal<std::string> &HaberDuyuruCaps::ClickDuyuru()
+{
+    return _ClickDuyuru;
+}
+
 std::string HaberDuyuruCaps::haberOid() const
 {
     return mHaberOid;
@@ -86,7 +109,7 @@ HaberDuyuruCapsItem::HaberDuyuruCapsItem(mongocxx::database *_db, bool m_Haber)
     {
         this->loadHaber();
     }else{
-        setBackGroundImage("test/2.jpg");
+        setBackGroundImage("test/1.jpg");
         this->loadDuyuru();
     }
 
@@ -319,6 +342,7 @@ std::string HaberDuyuruCapsItem::duyuruOid() const
 
 void HaberDuyuruCapsItem::setDuyuruOid(const std::string &duyuruOid)
 {
+    std::cout << __LINE__ << " " << __FUNCTION__ << " " << duyuruOid << std::endl;
     mDuyuruOid = duyuruOid;
 }
 

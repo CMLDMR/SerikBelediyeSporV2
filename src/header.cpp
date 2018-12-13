@@ -56,6 +56,13 @@ Signal<NoClass> &Header::ClickAnaSayfa()
 
 }
 
+Signal<NoClass> &Header::ClickHaberler()
+{
+
+    return _ClickHaberler;
+
+}
+
 void Header::PlaceLogo()
 {
 
@@ -195,9 +202,11 @@ void Header::PlaceToolBar()
 
     vLayout_->addStretch(1);
 
-
     auto row = container->addWidget(cpp14::make_unique<WContainerWidget>());
-    row->addStyleClass(Bootstrap::Grid::row);
+    row->addStyleClass(Bootstrap::Grid::row+Bootstrap::ImageShape::img_thumbnail);
+    row->setWidth(WLength("100%"));
+//    row->setPadding(0);
+
 
     const int menuBarHeight = 50;
     // 1. Ana Sayfa Butonu
@@ -214,6 +223,7 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Kurumsal</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
     }
 
@@ -231,7 +241,12 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Haberler</span>",TextFormat::XHTML),0,AlignmentFlag::Center);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
+
+        menuContainer->clicked().connect([=](){
+            this->_ClickHaberler.emit(NoClass());
+        });
     }
 
     // 3. Duyurular
@@ -248,6 +263,7 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Duyurular</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
     }
 
@@ -265,6 +281,7 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Galeri</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
     }
 
@@ -282,6 +299,7 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Taraftar</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
     }
 
@@ -299,6 +317,7 @@ void Header::PlaceToolBar()
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Hakkımızda</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
     }
 

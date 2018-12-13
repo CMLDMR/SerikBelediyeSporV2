@@ -10,6 +10,10 @@ public:
     void initBody();
     void initHaber(std::string mOid);
     void initDirectHaber( const std::string& mOid);
+    void initHaberList();
+
+    void initDuyuru( std::string mOid );
+    void initDirectDuyuru( std::string mOid );
 
 
 

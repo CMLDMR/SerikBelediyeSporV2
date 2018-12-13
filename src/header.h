@@ -12,6 +12,8 @@ public:
 
     Signal<NoClass> &ClickAnaSayfa();
 
+    Signal<NoClass> &ClickHaberler();
+
 private:
 
     void PlaceLogo();
@@ -26,6 +28,8 @@ private:
 
 
     Signal<NoClass> _ClickAnasayfa;
+
+    Signal<NoClass> _ClickHaberler;
 };
 
 #endif // HEADER_H

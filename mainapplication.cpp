@@ -85,6 +85,7 @@ void MainApplication::init()
     mFooter = root()->addWidget(cpp14::make_unique<Footer::Footer>());
 
     mHeader->ClickAnaSayfa().connect(mBody,&Body::initBody);
+    mHeader->ClickHaberler().connect(mBody,&Body::initHaberList);
 }
 
 void MainApplication::initRequestedItem(std::string url_)
@@ -118,6 +119,11 @@ void MainApplication::initRequestedItem(std::string url_)
                 if( collection == "Haberler" )
                 {
                     this->mBody->initDirectHaber(item.split("=").last().toStdString() );
+                    break;
+                }
+                if( collection == "Duyurular" )
+                {
+                    this->mBody->initDirectDuyuru(item.split("=").last().toStdString() );
                     break;
                 }
             }

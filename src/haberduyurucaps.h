@@ -14,12 +14,19 @@ public:
     std::string haberOid() const;
     void setHaberOid(const std::string &haberOid);
 
+    std::string duyuruOid() const;
+    void setDuyuruOid(const std::string &duyuruOid);
+    Signal<std::string> &ClickDuyuru();
+
 private:
     Signal<std::string> _ClickHaber;
-
     void emitHaberOid();
-
     std::string mHaberOid;
+
+
+    Signal<std::string> _ClickDuyuru;
+    void emitDuyuruOid();
+    std::string mDuyuruOid;
 };
 
 
