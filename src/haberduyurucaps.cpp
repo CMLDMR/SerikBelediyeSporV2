@@ -7,14 +7,12 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
     setHeight(200);
 
 
-//    setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::DeepPink));
 
 
     {
         auto cContainer = addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
         cContainer->setWidth(WLength("70%"));
         cContainer->setHeight(250);
-//        cContainer->setBackGroundImage("test/4.jpg");
         cContainer->setPositionScheme(PositionScheme::Absolute);
         cContainer->setLeftSide(15.0);
         cContainer->setTopSide(-150);
@@ -97,3 +95,6 @@ HaberDuyuruCapsItem::HaberDuyuruCapsItem(mongocxx::database *_db, bool m_Haber)
     }
     vLayout->addStretch(1);
 }
+
+
+

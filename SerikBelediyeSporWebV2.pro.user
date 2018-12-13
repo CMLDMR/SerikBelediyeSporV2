@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.8.0, 2018-12-10T11:28:46. -->
+<!-- Written by QtCreator 4.8.0, 2018-12-13T10:12:42. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -176,9 +176,7 @@
      <value type="int">14</value>
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
-    <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes">
-     <value type="QString">Path=D:\project\Yonetim-yazilimi\SerikBelediyeSporWebV2\SerikBelediyeSporWebV2\..\..\Libraries\Wt-4.0.4-msvs2017-x64\lib\;D:\project\Yonetim-yazilimi\SerikBelediyeSporWebV2\SerikBelediyeSporWebV2\mongo\lib\;C:\Qt\Qt5.12.0\5.12.0\msvc2015_64\bin;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files (x86)\MSBuild\14.0\bin\amd64;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\BIN\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\VCPackages;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Performance Tools\x64;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Performance Tools;C:\Program Files (x86)\Windows Kits\10\bin\x64;C:\Program Files (x86)\Windows Kits\10\bin\x86;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\x64\;C:\Qt\Qt5.12.0\5.12.0\msvc2015_64\bin;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\BIN\amd64;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\doxygen\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\TortoiseGit\bin;C:\Program Files\PuTTY\;C:\Program Files\Emscripten\node\0.12.2_64bit;C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64;C:\Qt\Tools\mingw730_64\bin;C:\boost\build\bin;C:\Program Files\Git\cmd;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Users\Manager\AppData\Local\Microsoft\WindowsApps;C:\Users\Manager\AppData\Local\GitHubDesktop\bin;C:\Users\Manager\AppData\Local\Microsoft\WindowsApps;C:\Users\Manager\AppData\Local\.meteor;D:\project\Yonetim-yazilimi\SerikBelediyeSporWebV2\SerikBelediyeSporWebV2\mongo\bin;D:\project\Yonetim-yazilimi\Libraries\Wt-4.0.4-msvs2017-x64\bin</value>
-    </valuelist>
+    <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SerikBelediyeSporWebV2</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/project/Yonetim-yazilimi/SerikBelediyeSporWebV2/SerikBelediyeSporWebV2/SerikBelediyeSporWebV2.pro</value>

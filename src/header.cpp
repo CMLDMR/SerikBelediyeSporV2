@@ -194,12 +194,13 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
-        auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Ana Sayfa</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
+        auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Kurumsal</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
         vLayout->addStretch(1);
     }
 
@@ -210,8 +211,9 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
@@ -226,8 +228,9 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
@@ -242,8 +245,9 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
@@ -258,8 +262,9 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
@@ -274,8 +279,9 @@ void Header::PlaceToolBar()
                                      +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
                                      +Bootstrap::Grid::ExtraSmall::col_xs_2);
-        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
+//        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
+        menuContainer->addStyleClass("menuBar");
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);

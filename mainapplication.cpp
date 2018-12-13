@@ -9,19 +9,19 @@ MainApplication::MainApplication(const WEnvironment &env)
 
     setTitle("Serik Belediye Spor Resmi Web Sayfası");
 
-//    try {
-//        mClient = new mongocxx::client(mongocxx::uri(_url));
-//    } catch (mongocxx::exception& e) {
-//        std::cout << "MongoDB Connection Error: " << e.what() << std::endl;
-//        root()->addWidget(cpp14::make_unique<WText>("Driver Yüklenemedi!"));
-//        return;
-//    } catch ( ... )
-//    {
-//        std::cout << "uknown Error Mongocxx Connection" << std::endl;
-//    }
+    try {
+        mClient = new mongocxx::client(mongocxx::uri(_url));
+    } catch (mongocxx::exception& e) {
+        std::cout << "MongoDB Connection Error: " << e.what() << std::endl;
+        root()->addWidget(cpp14::make_unique<WText>("Driver Yüklenemedi!"));
+        return;
+    } catch ( ... )
+    {
+        std::cout << "uknown Error Mongocxx Connection" << std::endl;
+    }
 
 
-//    db = mClient->database("SERIKBELEDIYESPORV2");
+    db = mClient->database("SerikSpor");
 
 
     Wt::WApplication *app = Wt::WApplication::instance();
@@ -43,26 +43,35 @@ MainApplication::MainApplication(const WEnvironment &env)
 
     Wt::WApplication::instance()->useStyleSheet("resources/themes/bootstrap/3/bootstrap-theme.min.css");
     Wt::WApplication::instance()->useStyleSheet("css/slider.css");
+    Wt::WApplication::instance()->useStyleSheet("css/header.css");
     WApplication::instance()->addMetaHeader("viewport","width=device-width, initial-scale=1.0");
 
 
-    auto filter = document{};
+//    std::cout << "Size: " << env.getParameterMap().size() << std::endl;
 
 
-//    try {
-//        auto cursor = mClient->database("SERIKBELEDIYESPORV2").collection("test").find(document{}.view());
-
-//        for( auto item : cursor )
-//        {
-//            std::cout << item["test"].get_utf8().value.to_string() << std::endl;
-//        }
-
-//    } catch (mongocxx::exception &e) {
-//        std::cout << "Line: " << __LINE__ << "  ->" <<e.what() << std::endl;
-//    }
+    auto map = env.getParameterMap();
+    std::string link = "";
+    for( auto item : map )
+    {
+        if( item.second.size() ){
+            link = item.second.at(0);
+        }
+    }
 
 
     this->init();
+
+    if( link.size() )
+    {
+        this->initRequestedItem(link);
+    }
+
+
+
+
+
+
 
 
 }
@@ -75,6 +84,42 @@ void MainApplication::init()
     mBody = root()->addWidget(cpp14::make_unique<Body>(&db));
 
     mFooter = root()->addWidget(cpp14::make_unique<Footer::Footer>());
+}
 
+void MainApplication::initRequestedItem(std::string url_)
+{
+
+
+    QString url = QString::fromStdString(url_);
+
+
+
+    if( url.at(0) == "/" )
+    {
+        url.remove(0,1);
+    }
+    std::string collection;
+    std::string oid;
+
+    int counter = 1;
+    for( auto item : url.split("&") ){
+        if( counter == 1 )
+        {
+            collection = item.split("=").last().toStdString();
+        }
+
+        if( counter == 2 )
+        {
+            if( item.split("=").first() == "oid" )
+            {
+                if( collection == "Haberler" )
+                {
+                    this->mBody->initDirectHaber(item.split("=").last().toStdString() );
+                    break;
+                }
+            }
+        }
+        counter++;
+    }
 
 }

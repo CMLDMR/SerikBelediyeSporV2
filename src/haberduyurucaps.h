@@ -18,4 +18,9 @@ public:
     HaberDuyuruCapsItem(mongocxx::database* _db , bool m_Haber = false );
 };
 
+
+
+
+
+
 #endif // HABERDUYURUCAPS_H

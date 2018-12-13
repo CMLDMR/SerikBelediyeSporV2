@@ -11,6 +11,10 @@ public:
 
     void initBody();
 
+    void initHaber(std::string mOid);
+    void initDirectHaber( const std::string& mOid);
+
+
 private:
     WContainerWidget* mMainContainer;
 };

@@ -42,9 +42,10 @@ int main()
     argv[0] =  (char*)"SerikBelediyeSporWebV2";
     argv[1] =  (char*)"--http-address=192.168.0.31";
     argv[2] =  (char*)"--http-port=8085";
-    argv[3] =  (char*)"--deploy-path=/";
-    argv[4] =  (char*)"--docroot=docroot";
-    argv[5] =  (char*)"--approot=approot";
+
+    argv[3] =  (char*)"--docroot=docroot";
+    argv[4] =  (char*)"--approot=approot";
+    argv[5] =  (char*)"--deploy-path=/";
 
 
 

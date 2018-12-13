@@ -120,6 +120,118 @@ mongocxx::collection ContainerWidget::collection(const std::string& collectionna
     return mdb->collection(collectionname);
 }
 
+std::string ContainerWidget::downloadFile(std::string oid, bool forceFilename)
+{
+
+    auto Bucket = this->db()->gridfs_bucket();
+
+    if( QFile::exists( QString("docroot/tempfile/%1.indexed").arg(oid.c_str()) ) )
+    {
+        QFile file(QString("docroot/tempfile/%1.indexed").arg(oid.c_str()));
+        if( file.open(QIODevice::ReadOnly) )
+        {
+            QString fileName = QString::fromUtf8(file.readAll());
+            file.close();
+            return fileName.toStdString();
+        }
+    }else{
+        std::cout << "FILE NOT FOUND" << QString("docroot/tempfile/%1.indexed").arg(oid.c_str()).toStdString() << std::endl;
+    }
+
+
+
+
+    auto doc = bsoncxx::builder::basic::document{};
+
+    try {
+        doc.append(bsoncxx::builder::basic::kvp("key",bsoncxx::oid{oid}));
+    } catch (bsoncxx::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+        return "img/404-header.png";
+    }
+
+
+
+    mongocxx::gridfs::downloader downloader;
+    try {
+        auto roid = bsoncxx::types::value(doc.view()["key"].get_oid());
+        downloader = Bucket.open_download_stream(roid);
+
+    } catch (bsoncxx::exception &e) {
+        return "img/error.png";
+    }
+
+
+    auto file_length = downloader.file_length();
+    auto bytes_counter = 0;
+
+    QFileInfo info( downloader.files_document()["filename"].get_utf8().value.to_string().c_str() );
+
+    QString fullFilename;
+
+    if( forceFilename )
+    {
+        fullFilename = QString("tempfile/%1").arg(downloader.files_document()["filename"].get_utf8().value.to_string().c_str());
+    }else{
+        fullFilename = QString("tempfile/%2.%1").arg(info.suffix())
+                           .arg(downloader.files_document()["md5"].get_utf8().value.to_string().c_str());
+    }
+
+    //        if( QFile::exists("docroot/"+fullFilename) )
+    //        {
+    //            return fullFilename.toStdString();
+    //        }
+
+    auto buffer_size = std::min(file_length, static_cast<std::int64_t>(downloader.chunk_size()));
+    auto buffer = bsoncxx::stdx::make_unique<std::uint8_t[]>(static_cast<std::size_t>(buffer_size));
+
+    std::ofstream out;
+
+    out.open("docroot/"+fullFilename.toStdString(),std::ios::out | std::ios::app | std::ios::binary);
+
+
+    if( out.is_open() )
+    {
+
+        while ( auto length_read = downloader.read(buffer.get(), static_cast<std::size_t>(buffer_size)) ) {
+
+            auto bufferPtr = buffer.get();
+            std::cout << "Size Of: " << sizeof ( bufferPtr ) << std::endl;
+            out.write( reinterpret_cast<char*>( bufferPtr ) , length_read );
+
+            bytes_counter += static_cast<std::int32_t>( length_read );
+            //                std::cout << "Downloaded: " << file_length << "/" << bytes_counter << " lengRead :" << length_read << " Buffer Size: " << buffer_size << std::endl;
+
+        }
+
+        out.close();
+    }
+
+    else{
+        std::cout << "Error Can Not Open File: " <<"docroot/"+fullFilename.toStdString() << std::endl;
+        return "img/error.png";
+    }
+
+
+    QFile file(QString("docroot/tempfile/%1.indexed").arg(oid.c_str()));
+    if( file.open(QIODevice::ReadWrite) )
+    {
+        file.write(fullFilename.toUtf8());
+        file.close();
+    }else{
+        std::cout << "FILE CAN NOT CREATED: " << file.fileName().toStdString() << fullFilename.toStdString() << std::endl;
+    }
+
+    std::cout << "FILE FORCED : " << forceFilename <<" FILE FILL: " << fullFilename.toStdString() <<" TOTHIS FILE: " << file.fileName().toStdString() << std::endl;
+
+    return fullFilename.toStdString();
+}
+
+std::string ContainerWidget::getErroImgPath() const
+{
+    return "img/404-header.png";
+}
+
 mongocxx::database *ContainerWidget::db() const
 {
     return mdb;

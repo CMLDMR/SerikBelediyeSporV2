@@ -52,7 +52,7 @@ IletisimWidget::IletisimWidget(mongocxx::database *_db)
         }
 
         {
-            auto text = vLayout->addWidget(cpp14::make_unique<WText>("Hentbol"));
+            auto text = vLayout->addWidget(cpp14::make_unique<WText>("Bisiklet"));
             text->setAttributeValue(Style::style,Style::font::weight::normal
                                         +Style::font::size::s14px
                                         +Style::color::color(Style::color::White::Snow));

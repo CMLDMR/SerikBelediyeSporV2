@@ -159,7 +159,7 @@ TakimlarWidget::TakimlarWidget(mongocxx::database *_db)
             auto _vLayout = colorContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
             _vLayout->addStretch(1);
 
-            auto text = _vLayout->addWidget(cpp14::make_unique<WText>("Hentbol"));
+            auto text = _vLayout->addWidget(cpp14::make_unique<WText>("Bisiklet"));
             text->setAttributeValue(Style::style,Style::color::color(Style::color::White::Linen)+Style::font::size::s20px+Style::font::weight::lighter);
 
             _vLayout->addStretch(1);

@@ -2,7 +2,10 @@ TEMPLATE = app
 CONFIG += console
 CONFIG += c++1z
 CONFIG -= app_bundle
-CONFIG -= qt
+#CONFIG -= qt
+
+QT  += core
+CONFIG += no_keywords
 
 SOURCES += \
         main.cpp \
@@ -15,7 +18,8 @@ SOURCES += \
     src/takimlarwidget.cpp \
     src/footer.cpp \
     src/fotovideowidget.cpp \
-    src/iletisimwidget.cpp
+    src/iletisimwidget.cpp \
+    src/haberdetail.cpp
 
 
 
@@ -54,7 +58,8 @@ HEADERS += \
     src/takimlarwidget.h \
     src/footer.h \
     src/fotovideowidget.h \
-    src/iletisimwidget.h
+    src/iletisimwidget.h \
+    src/haberdetail.h
 
 INCLUDEPATH += $$PWD/../../Comman
 DEPENDPATH += $$PWD/../../Comman
@@ -89,4 +94,5 @@ INCLUDEPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'
 DEPENDPATH += $$PWD/'../../Libraries/Boost MSVC 2015 x64/boost_1_68_0'
 
 DISTFILES += \
-    ../build-SerikBelediyeSporWebV2-Desktop_Qt_5_12_0_MSVC2017_64bit3-Release/docroot/css/slider.css
+    ../build-SerikBelediyeSporWebV2-Desktop_Qt_5_12_0_MSVC2017_64bit3-Release/docroot/css/slider.css \
+    ../build-SerikBelediyeSporWebV2-Desktop_Qt_5_12_0_MSVC2017_64bit3-Release/docroot/css/header.css

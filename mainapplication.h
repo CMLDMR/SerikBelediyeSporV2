@@ -30,6 +30,12 @@ public:
     /// initialization main page;
     void init();
 
+    ///
+    /// \brief initRequestedItem
+    /// \param url
+    /// get Direct Link
+    void initRequestedItem(std::string url_);
+
 private:
     ///
     /// \brief mClient

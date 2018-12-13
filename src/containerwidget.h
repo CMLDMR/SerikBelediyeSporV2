@@ -7,6 +7,7 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WSpinBox.h>
 #include <Wt/WVBoxLayout.h>
+#include <Wt/WSignal.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
@@ -15,6 +16,13 @@
 
 
 #include "mongocxx.h"
+
+#include <fstream>
+#include <QFile>
+#include <QString>
+#include <QByteArray>
+#include <QFileInfo>
+
 
 
 using namespace Wt;
@@ -95,6 +103,23 @@ void setBottomSide( int pixel = 0 );
 /// \return
 /// get Collectio  of Database
 mongocxx::collection collection(const std::string &collectionname );
+
+
+
+///
+/// \brief downloadFile
+/// \param oid
+/// \param forceFilename
+/// \return
+/// Download image and return its path
+std::string downloadFile( std::string oid , bool forceFilename = false );
+
+///
+/// \brief getErroImgPath
+/// \return
+/// Return Error image for Error
+std::string getErroImgPath() const;
+
 
 
 ///
