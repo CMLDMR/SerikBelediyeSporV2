@@ -86,16 +86,25 @@ Slider::Slider(mongocxx::database *_db)
 
     {
         auto container = std::make_unique<SlideItem>(this->db(),2);
+        container->Click().connect([&](std::string oid){
+            this->_mClick.emit(oid);
+        });
         stackWidget->insertWidget(2,std::move(container));
     }
 
     {
         auto container = std::make_unique<SlideItem>(this->db(),3);
+        container->Click().connect([&](std::string oid){
+            this->_mClick.emit(oid);
+        });
         stackWidget->insertWidget(3,std::move(container));
     }
 
     {
         auto container = std::make_unique<SlideItem>(this->db(),4);
+        container->Click().connect([&](std::string oid){
+            this->_mClick.emit(oid);
+        });
         stackWidget->insertWidget(4,std::move(container));
     }
 
@@ -218,20 +227,6 @@ SlideItem::SlideItem(mongocxx::database *_db, const int index_)
     } catch (mongocxx::exception &e) {
         std::cout << "Line: " << __LINE__ << "  ->" <<e.what() << std::endl;
     }
-
-
-
-
-
-
-//    auto imgPath = this->downloadFile("5ae6cc12ae94be18fc00097c");
-
-//    setAttributeValue(Style::style,Style::background::url(imgPath)
-//                                            +Style::background::repeat::norepeat
-//                          +Style::background::position::center_center
-//                          +Style::background::size::cover);
-
-
 
 
 

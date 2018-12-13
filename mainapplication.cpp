@@ -78,12 +78,13 @@ MainApplication::MainApplication(const WEnvironment &env)
 
 void MainApplication::init()
 {
-
     mHeader = root()->addWidget(cpp14::make_unique<Header>(&db));
 
     mBody = root()->addWidget(cpp14::make_unique<Body>(&db));
 
     mFooter = root()->addWidget(cpp14::make_unique<Footer::Footer>());
+
+    mHeader->ClickAnaSayfa().connect(mBody,&Body::initBody);
 }
 
 void MainApplication::initRequestedItem(std::string url_)
@@ -103,6 +104,8 @@ void MainApplication::initRequestedItem(std::string url_)
 
     int counter = 1;
     for( auto item : url.split("&") ){
+
+        std::cout << counter << ". "<< item.toStdString() << std::endl;
         if( counter == 1 )
         {
             collection = item.split("=").last().toStdString();

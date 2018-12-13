@@ -49,6 +49,13 @@ Header::Header(mongocxx::database *db)
 
 }
 
+Signal<NoClass> &Header::ClickAnaSayfa()
+{
+
+    return _ClickAnasayfa;
+
+}
+
 void Header::PlaceLogo()
 {
 
@@ -57,12 +64,15 @@ void Header::PlaceLogo()
                                      +Bootstrap::Grid::Medium::col_md_2
                                  +Bootstrap::Grid::Small::col_sm_3
                                  +Bootstrap::Grid::ExtraSmall::col_xs_3);
-//        logoContainer->decorationStyle().setBorder(WBorder(BorderStyle::Solid,1,WColor(0,255,0)));
         logoContainer->setHeight(100);
         logoContainer->setAttributeValue(Style::style,Style::background::url("img/logo.png")
                                              +Style::background::repeat::norepeat
                                              +Style::background::position::center_center
                                              +Style::background::size::contain);
+
+        logoContainer->clicked().connect([=](){
+            _ClickAnasayfa.emit(NoClass());
+        });
 
 }
 
@@ -74,7 +84,6 @@ void Header::PlaceSerik()
                                     +Bootstrap::Grid::Medium::col_md_10
                                     +Bootstrap::Grid::Small::col_sm_9
                                     +Bootstrap::Grid::ExtraSmall::col_xs_9);
-//    menubarContainer->decorationStyle().setBorder(WBorder(BorderStyle::Solid,1,WColor(125,255,75)));
     menubarContainer->setHeight(100);
 
 
@@ -159,6 +168,10 @@ void Header::PlaceSerik()
         container->setHeight(100);
     }
 
+
+    menucontainer->clicked().connect([=](){
+        _ClickAnasayfa.emit(NoClass());
+    });
 
 
 }

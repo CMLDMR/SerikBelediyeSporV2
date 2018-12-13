@@ -16,7 +16,7 @@ ContainerWidget::ContainerWidget(mongocxx::database *db_)
 
 void ContainerWidget::setBackGroundImage(const std::string &imgpath)
 {
-    mBackGroundImg = Style::background::url(imgpath);
+    mBackGroundImg = Style::background::url(imgpath)+Style::background::size::cover+Style::background::repeat::norepeat;
     updateStyle();
 }
 

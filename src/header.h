@@ -9,6 +9,9 @@ public:
     Header(mongocxx::database* db);
 
 
+
+    Signal<NoClass> &ClickAnaSayfa();
+
 private:
 
     void PlaceLogo();
@@ -20,6 +23,9 @@ private:
 
 
     ContainerWidget* mContentContainer;
+
+
+    Signal<NoClass> _ClickAnasayfa;
 };
 
 #endif // HEADER_H
