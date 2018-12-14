@@ -26,7 +26,7 @@ private:
 
 
 
-    ContainerWidget* mContentContainer;
+    WContainerWidget* mContentContainer;
 
 
     Signal<NoClass> _ClickAnasayfa;

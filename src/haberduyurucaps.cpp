@@ -4,7 +4,8 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
     :ContainerWidget (_db)
 {
 
-    setHeight(200);
+    setHeight(150);
+    addStyleClass("HaberDuyuruContainer");
 
 
 
@@ -16,13 +17,14 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
         cContainer->setPositionScheme(PositionScheme::Absolute);
         cContainer->setLeftSide(15.0);
         cContainer->setTopSide(-150);
+        cContainer->addStyleClass("HaberDuyuruCaps");
 
         {
             auto container = cContainer->addWidget(cpp14::make_unique<HaberDuyuruCapsItem>(this->db(),true));
                 container->addStyleClass(Bootstrap::Grid::Large::col_lg_5
                                          +Bootstrap::Grid::Medium::col_md_5
                                      +Bootstrap::Grid::Small::col_sm_5
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_12);
+                                     +Bootstrap::Grid::ExtraSmall::col_xs_5);
                 container->setHeight(WLength("100%"));
 
                 this->setHaberOid(container->haberOid());
@@ -36,7 +38,7 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
                 container->addStyleClass(Bootstrap::Grid::Large::col_lg_2
                                          +Bootstrap::Grid::Medium::col_md_2
                                      +Bootstrap::Grid::Small::col_sm_2
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_12);
+                                     +Bootstrap::Grid::ExtraSmall::col_xs_2);
                 container->setHeight(WLength("0%"));
         }
 
@@ -45,7 +47,7 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
                 container->addStyleClass(Bootstrap::Grid::Large::col_lg_5
                                          +Bootstrap::Grid::Medium::col_md_5
                                      +Bootstrap::Grid::Small::col_sm_5
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_12);
+                                     +Bootstrap::Grid::ExtraSmall::col_xs_5);
                 container->setHeight(WLength("100%"));
                 this->setDuyuruOid(container->duyuruOid());
                 container->clicked().connect(this,&HaberDuyuruCaps::emitDuyuruOid);
@@ -199,6 +201,7 @@ void HaberDuyuruCapsItem::loadHaber()
     vLayout->addStretch(1);
     auto haberTitle = vLayout->addWidget(cpp14::make_unique<WText>("Haber"),0,AlignmentFlag::Center|AlignmentFlag::Middle);
     haberTitle->setAttributeValue(Style::style,Style::font::size::s20px+Style::color::color(Style::color::White::White));
+    haberTitle->addStyleClass("haberTextCss");
 
     vLayout->addStretch(1);
 
@@ -206,6 +209,7 @@ void HaberDuyuruCapsItem::loadHaber()
     ContentTitle->setAttributeValue(Style::style,Style::font::size::s24px
                                         +Style::font::weight::bold
                                         +Style::color::color(Style::color::Orange::DarkOrange));
+    ContentTitle->addStyleClass("HaberTitleCss");
     vLayout->addStretch(1);
 
     {
@@ -217,6 +221,8 @@ void HaberDuyuruCapsItem::loadHaber()
         DetayTitle->setAttributeValue(Style::style,Style::font::size::s18px
                                           +Style::font::weight::lighter
                                           +Style::color::color(Style::color::White::AliceBlue));
+        DetayTitle->addStyleClass("haberTextCss");
+
     }
     vLayout->addStretch(1);
 }
@@ -312,6 +318,7 @@ void HaberDuyuruCapsItem::loadDuyuru()
     vLayout->addStretch(1);
     auto haberTitle = vLayout->addWidget(cpp14::make_unique<WText>(this->duyuruTipi()),0,AlignmentFlag::Center|AlignmentFlag::Middle);
     haberTitle->setAttributeValue(Style::style,Style::font::size::s20px+Style::color::color(Style::color::White::White));
+    haberTitle->addStyleClass("haberTextCss");
 
     vLayout->addStretch(1);
 
@@ -319,6 +326,7 @@ void HaberDuyuruCapsItem::loadDuyuru()
     ContentTitle->setAttributeValue(Style::style,Style::font::size::s24px
                                         +Style::font::weight::bold
                                         +Style::color::color(Style::color::Orange::DarkOrange));
+    ContentTitle->addStyleClass("HaberTitleCss");
     vLayout->addStretch(1);
 
     {
@@ -330,6 +338,7 @@ void HaberDuyuruCapsItem::loadDuyuru()
         DetayTitle->setAttributeValue(Style::style,Style::font::size::s18px
                                           +Style::font::weight::lighter
                                           +Style::color::color(Style::color::White::AliceBlue));
+        DetayTitle->addStyleClass("haberTextCss");
     }
     vLayout->addStretch(1);
 

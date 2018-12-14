@@ -8,12 +8,17 @@ Slider::Slider(mongocxx::database *_db)
 
     setMargin(0,AllSides);
 //    setId("slider");
+    setId("SliderID");
 
-    setHeight(__Height);
+//    addStyleClass("SliderRect");
+
+//    setHeight(__Height);
 
     stackWidget = addWidget(cpp14::make_unique<WStackedWidget>());
 
-    stackWidget->setHeight(__Height);
+//    stackWidget->setHeight(__Height);
+
+    stackWidget->setTransitionAnimation(WAnimation(AnimationEffect::Fade));
 
     {
         auto container = addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
@@ -38,6 +43,9 @@ Slider::Slider(mongocxx::database *_db)
             if( currentIndex < 0 ) currentIndex = 3;
             stackWidget->setCurrentIndex(currentIndex);
         });
+
+        container->addStyleClass("SliderController");
+
 
     }
 
@@ -65,6 +73,8 @@ Slider::Slider(mongocxx::database *_db)
             if( currentIndex >= stackWidget->count() ) currentIndex = 0;
             stackWidget->setCurrentIndex(currentIndex);
         });
+
+        container->addStyleClass("SliderController");
     }
 
 
@@ -119,34 +129,39 @@ Signal<std::string> &Slider::mClick()
 SlideItem::SlideItem(mongocxx::database *_db, const int index_)
     :ContainerWidget (_db),index(index_)
 {
-    setHeight(__Height);
+//    setHeight(__Height);
 
 
     auto container = addWidget(cpp14::make_unique<WContainerWidget>());
     container->addStyleClass("SliderGradient");
-    container->setHeight(__Height);
+//    container->setHeight(__Height);
+
 
     container->clicked().connect([&](){
         this->_mClick.emit(mOid);
     });
 
+    auto mTextContainer = container->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
+    mTextContainer->setPositionScheme(PositionScheme::Absolute);
+    mTextContainer->setLeftSide(5.0);
+//    mTextContainer->setTopSide(20.0);
+    mTextContainer->setPadding(20,AllSides);
+    mTextContainer->setAttributeValue(Style::style,mTextContainer->attributeValue(Style::style)+Style::background::color::rgba(0,0,0));
+    mTextContainer->addStyleClass(Bootstrap::ImageShape::img_rounded);
+    mTextContainer->addStyleClass("SlideTitleContainer");
+
     {
-        auto textContainer = container->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
+        auto textContainer = mTextContainer->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
         mTextTitle = textContainer->addWidget(cpp14::make_unique<WText>(""));
         mTextTitle->setAttributeValue(Style::style,Style::font::weight::bold+Style::font::size::s36px+Style::color::color(Style::color::Orange::Orange));
-        textContainer->setPositionScheme(PositionScheme::Absolute);
-        textContainer->setLeftSide(5.0);
-        textContainer->setTopSide(20.0);
+        mTextTitle->addStyleClass("SliderTitle");
     }
 
     {
-        auto textContainer = container->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
+        auto textContainer = mTextContainer->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
         mSmallText = textContainer->addWidget(cpp14::make_unique<WText>(""));
-        mSmallText->setAttributeValue(Style::style,Style::font::weight::bold+Style::font::size::s24px+Style::color::color(Style::color::White::Azure));
-        textContainer->setPositionScheme(PositionScheme::Absolute);
-        textContainer->setAttributeValue(Style::style,Style::background::color::rgba(0,0,0));
-        textContainer->setLeftSide(5.0);
-        textContainer->setTopSide(35.0);
+        mSmallText->setAttributeValue(Style::style,Style::font::weight::lighter+Style::font::family::tahoma+Style::font::size::s20px+Style::color::color(Style::color::White::Azure));
+        mSmallText->addStyleClass("SliderSubTitle");
     }
 
 
@@ -190,8 +205,15 @@ SlideItem::SlideItem(mongocxx::database *_db, const int index_)
 
             auto view = val.value().view();
 
+//            if( index == 0 )
+//            {
+//                std::cout << __LINE__ << " bsonxx: " << bsoncxx::to_json(view) << std::endl;
+//            }
+
+//            std::cout << "INDEX: " << index << std::endl;
             try {
                 auto value = view["habericon"].get_oid().value.to_string();
+//                std::cout << index <<" habeicon oid: " << value << std::endl;
                 this->setBackGroundImg(this->downloadFile(value));
 
             } catch (bsoncxx::exception &e) {

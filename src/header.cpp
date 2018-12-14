@@ -21,14 +21,14 @@ Header::Header(mongocxx::database *db)
     setHeight(175);
 
 
-    auto row = addWidget(cpp14::make_unique<WContainerWidget>());
-    row->addStyleClass(Bootstrap::Grid::row);
-    row->setMaximumSize(1440,WLength::Auto);
+    mContentContainer = addWidget(cpp14::make_unique<WContainerWidget>());
+    mContentContainer->addStyleClass(Bootstrap::Grid::row);
+    mContentContainer->setMaximumSize(1440,WLength::Auto);
 
 
-    mContentContainer = row->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
-//    mContentContainer->setBorder(StandardColor::Red);
-    mContentContainer->addStyleClass(Bootstrap::Grid::col_full_12);
+//    mContentContainer = row->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
+////    mContentContainer->setBorder(StandardColor::Red);
+//    mContentContainer->addStyleClass(Bootstrap::Grid::col_full_12);
 
     // Serik Belediye Spor Logo
     {
@@ -102,6 +102,7 @@ void Header::PlaceSerik()
     menubarContainer->setHeight(100);
 
 
+
     auto menucontainer = menubarContainer->addWidget(cpp14::make_unique<WContainerWidget>());
     menucontainer->addStyleClass(Bootstrap::Grid::container_fluid);
 
@@ -109,11 +110,11 @@ void Header::PlaceSerik()
     rRow->addStyleClass(Bootstrap::Grid::row);
 
     {
-        auto container = menucontainer->addWidget(cpp14::make_unique<WContainerWidget>());
+        auto container = rRow->addWidget(cpp14::make_unique<WContainerWidget>());
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_6
                                  +Bootstrap::Grid::Medium::col_md_6
-                                 +Bootstrap::Grid::Small::col_sm_6
-                                 +Bootstrap::Grid::ExtraSmall::col_xs_6);
+                                 +Bootstrap::Grid::Small::col_sm_12
+                                 +Bootstrap::Grid::ExtraSmall::col_xs_12);
         container->setContentAlignment(AlignmentFlag::Right);
 
 
@@ -127,11 +128,14 @@ void Header::PlaceSerik()
     }
 
     {
-        auto container = menucontainer->addWidget(cpp14::make_unique<WContainerWidget>());
+        auto container = rRow->addWidget(cpp14::make_unique<WContainerWidget>());
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_3
                                  +Bootstrap::Grid::Medium::col_md_3
-                                 +Bootstrap::Grid::Small::col_sm_3
-                                 +Bootstrap::Grid::ExtraSmall::col_xs_3);
+                                 +Bootstrap::Grid::Small::col_sm_6
+                                 +Bootstrap::Grid::ExtraSmall::col_xs_6);
+
+        container->addStyleClass("menubarinfo");
+
 
 
         auto _vLayout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
@@ -157,11 +161,12 @@ void Header::PlaceSerik()
     }
 
     {
-        auto container = menucontainer->addWidget(cpp14::make_unique<WContainerWidget>());
+        auto container = rRow->addWidget(cpp14::make_unique<WContainerWidget>());
         container->addStyleClass(Bootstrap::Grid::Large::col_lg_3
                                  +Bootstrap::Grid::Medium::col_md_3
-                                 +Bootstrap::Grid::Small::col_sm_3
-                                 +Bootstrap::Grid::ExtraSmall::col_xs_3);
+                                 +Bootstrap::Grid::Small::col_sm_6
+                                 +Bootstrap::Grid::ExtraSmall::col_xs_6);
+        container->addStyleClass("menubarinfo");
 
         auto _vLayout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
 
@@ -198,24 +203,11 @@ void Header::PlaceToolBar()
 
     auto menubarContainer = mContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
     menubarContainer->addStyleClass(Bootstrap::Grid::col_full_12);
-//    menubarContainer->decorationStyle().setBorder(WBorder(BorderStyle::Solid,1,WColor(125,255,75)));
     menubarContainer->setHeight(60);
 
-    auto vLayout_ = menubarContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
-
-    vLayout_->addStretch(1);
-
-    auto container = vLayout_->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Justify);
-    container->addStyleClass(Bootstrap::Grid::container_fluid);
-    container->setHeight(30);
-//    container->decorationStyle().setBorder(WBorder(BorderStyle::Solid,1,WColor(255,125,75)));
-
-    vLayout_->addStretch(1);
-
-    auto row = container->addWidget(cpp14::make_unique<WContainerWidget>());
+    auto row = menubarContainer->addWidget(cpp14::make_unique<WContainerWidget>());
     row->addStyleClass(Bootstrap::Grid::row+Bootstrap::ImageShape::img_thumbnail);
     row->setWidth(WLength("100%"));
-//    row->setPadding(0);
 
 
     const int menuBarHeight = 50;
