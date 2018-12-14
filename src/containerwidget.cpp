@@ -174,7 +174,7 @@ std::string ContainerWidget::downloadFile(std::string oid, bool forceFilename)
         fullFilename = QString("tempfile/%1").arg(downloader.files_document()["filename"].get_utf8().value.to_string().c_str());
     }else{
         fullFilename = QString("tempfile/%2.%1").arg(info.suffix())
-                           .arg(downloader.files_document()["md5"].get_utf8().value.to_string().c_str());
+                           .arg(downloader.files_document()["_id"].get_oid().value.to_string().c_str());
     }
 
     //        if( QFile::exists("docroot/"+fullFilename) )
