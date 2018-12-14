@@ -65,6 +65,8 @@ void Body::initDirectHaber(const std::string &mOid)
     mMainContainer->clear();
 
 
+//    std::cout << __FILE__ << " " << __LINE__ << " " << __FUNC__ << " : " << mOid << std::endl;
+
     auto filter = document{};
 
     try {
@@ -152,13 +154,16 @@ void Body::initDirectHaber(const std::string &mOid)
                 _Container->setMaximumSize(1200,WLength::Auto);
                 _Container->setContentAlignment(AlignmentFlag::Justify);
                 _Container->addStyleClass(Bootstrap::ImageShape::img_rounded);
-                auto _text = _Container->addWidget(cpp14::make_unique<WText>(" HTML CONTENT " , TextFormat::UnsafeXHTML));
 
 
+//                _text->setTextFormat(TextFormat::UnsafeXHTML);
                 try {
-                    auto value = view["html"].get_utf8().value.to_string().c_str();
-                    std::cout << "Set TEXT: " << _text->setText(value) << std::endl;
-                    _text->setMaximumSize(1024,WLength::Auto);
+                    auto value = view["html"].get_utf8().value.to_string();
+//                    std::cout << "FILE: " << __FILE__ << " Line: " << __LINE__ << value << std::endl;
+                    auto _text = _Container->addWidget(cpp14::make_unique<WText>(value , TextFormat::UnsafeXHTML));
+
+//                    std::cout << "Set TEXT: " << _text->setText(value) << std::endl;
+//                    _text->setMaximumSize(1024,WLength::Auto);
                 } catch (bsoncxx::exception &e) {
                     std::cout << "Line " << __LINE__ << "->in view html type is not " << "get_utf8() :"<< e.what() << std::endl;
                 }
@@ -204,26 +209,47 @@ void Body::initHaberList()
     findOptions.limit(12);
     findOptions.sort(sortDoc.view());
 
+    auto ContentContainer = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    ContentContainer->addStyleClass(Bootstrap::Grid::col_full_12);
+    ContentContainer->setContentAlignment(AlignmentFlag::Center);
+    ContentContainer->setMargin(20,Side::Top|Side::Bottom);
 
+    auto rContainer = ContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    rContainer->addStyleClass(Bootstrap::Grid::row);
+    rContainer->setMaximumSize(1200,WLength::Auto);
+
+    {
+
+        auto titleContainer = rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+        titleContainer->addStyleClass(Bootstrap::Grid::col_full_12);
+        titleContainer->setAttributeValue(Style::style,Style::background::url("img/newsBack.jpg")+Style::background::size::cover);
+        titleContainer->setHeight(100);
+
+        auto nContainer = titleContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+        nContainer->setWidth(WLength("100%"));
+        nContainer->setHeight(WLength("100%"));
+        nContainer->setAttributeValue(Style::style,Style::background::color::rgba(0,0,0));
+
+        auto vLayout = nContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
+
+        auto text = vLayout->addWidget(cpp14::make_unique<WText>("Haberler"),0,AlignmentFlag::Center|AlignmentFlag::Middle);
+
+        text->setAttributeValue(Style::style,Style::color::color(Style::color::White::Snow)+Style::font::family::tahoma+Style::font::size::s18px);
+
+    }
 
     try {
         auto cursor = this->db()->collection("Haberler").find(filter.view(),findOptions);
 
 
-        auto ContentContainer = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
-        ContentContainer->addStyleClass(Bootstrap::Grid::col_full_12);
-        ContentContainer->setContentAlignment(AlignmentFlag::Center);
 
-        auto rContainer = ContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
-        rContainer->addStyleClass(Bootstrap::Grid::row);
-        rContainer->setMaximumSize(1200,WLength::Auto);
 
 
         for( auto doc : cursor )
         {
 
             auto _container = rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
-            _container->addStyleClass(Bootstrap::Grid::Large::col_lg_2+Bootstrap::Grid::Medium::col_md_3+Bootstrap::Grid::Small::col_sm_4+Bootstrap::Grid::ExtraSmall::col_xs_6);
+            _container->addStyleClass(Bootstrap::Grid::Large::col_lg_3+Bootstrap::Grid::Medium::col_md_4+Bootstrap::Grid::Small::col_sm_4+Bootstrap::Grid::ExtraSmall::col_xs_6);
             _container->decorationStyle().setCursor(Cursor::PointingHand);
 
             // Click Oid
@@ -245,14 +271,16 @@ void Body::initHaberList()
             container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
             container->setAttributeValue(Style::style,Style::background::color::rgba(245,245,245));
             container->setHeight(240);
+            container->setWidth(WLength("90%"));
             auto vLayout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
+            vLayout->setContentsMargins(15,5,15,5);
 
             // Resim
             {
                 auto imgContainer = vLayout->addWidget(cpp14::make_unique<WContainerWidget>());
                 imgContainer->setWidth(WLength("100%"));
                 imgContainer->setHeight(180);
-                imgContainer->addStyleClass(Bootstrap::ImageShape::img_circle);
+                imgContainer->addStyleClass(Bootstrap::ImageShape::img_rounded);
                 try {
                     auto value = doc["habericon"].get_oid().value.to_string();
                     imgContainer->setAttributeValue(Style::style,Style::background::url(this->downloadFile(value))+Style::background::size::cover+Style::background::repeat::norepeat);
@@ -268,7 +296,7 @@ void Body::initHaberList()
                 try {
                     auto value = doc["baslik"].get_utf8().value.to_string();
                     auto text = vLayout->addWidget(cpp14::make_unique<WText>(value));
-                    text->setAttributeValue(Style::style,Style::font::size::s14px+Style::font::family::tahoma);
+                    text->setAttributeValue(Style::style,Style::font::size::s14px+Style::font::family::tahoma+Style::font::weight::bold);
                 } catch (bsoncxx::exception &e) {
                     std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "->in doc baslik type is not " << "get_utf8() :"<< e.what() << std::endl;
                     auto text = vLayout->addWidget(cpp14::make_unique<WText>(e.what()));
