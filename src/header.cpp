@@ -63,6 +63,13 @@ Signal<NoClass> &Header::ClickHaberler()
 
 }
 
+Signal<NoClass> &Header::ClickDuyurular()
+{
+
+    return _ClickDuyurular;
+
+}
+
 void Header::PlaceLogo()
 {
 
@@ -269,6 +276,9 @@ void Header::PlaceToolBar()
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Duyurular</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
         text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
+        menuContainer->clicked().connect([=](){
+            this->_ClickDuyurular.emit(NoClass());
+        });
     }
 
     // 4. Galeri
