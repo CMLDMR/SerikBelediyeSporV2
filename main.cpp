@@ -40,8 +40,8 @@ int main()
 
     //--docroot docroot --http-address 192.168.0.31 --http-port 8085 --approot approot --config approot/wt_config.xml
     argv[0] =  (char*)"SerikBelediyeSporWebV2";
-    argv[1] =  (char*)"--http-address=192.168.0.31";
-    argv[2] =  (char*)"--http-port=8085";
+    argv[1] =  (char*)"--http-address=192.168.0.11";
+    argv[2] =  (char*)"--http-port=8084";
 
     argv[3] =  (char*)"--docroot=docroot";
     argv[4] =  (char*)"--approot=approot";

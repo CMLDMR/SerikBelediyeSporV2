@@ -89,6 +89,20 @@ void MainApplication::init()
     mHeader->ClickHaberler().connect(mBody,&Body::initHaberList);
     mHeader->ClickDuyurular().connect([=](){mBody->initDuyuruList();});
 
+
+
+    auto device0 = root()->addWidget(cpp14::make_unique<WText>("Serik BelediyeSpor © 2018"));
+    auto device1 = root()->addWidget(cpp14::make_unique<WText>("Serik BelediyeSpor © 2018"));
+    auto device2 = root()->addWidget(cpp14::make_unique<WText>("Serik BelediyeSpor © 2018"));
+    auto device3 = root()->addWidget(cpp14::make_unique<WText>("Serik BelediyeSpor © 2018"));
+    auto device4 = root()->addWidget(cpp14::make_unique<WText>("Serik BelediyeSpor © 2018"));
+
+    device0->addStyleClass("device0");
+    device1->addStyleClass("device1");
+    device2->addStyleClass("device2");
+    device3->addStyleClass("device3");
+    device4->addStyleClass("device4");
+
 }
 
 void MainApplication::initRequestedItem(std::string url_)
