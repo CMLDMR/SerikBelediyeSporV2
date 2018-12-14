@@ -7,6 +7,7 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WSpinBox.h>
 #include <Wt/WVBoxLayout.h>
+#include <Wt/WHBoxLayout.h>
 #include <Wt/WSignal.h>
 
 #include "bootstrap.h"
@@ -22,6 +23,7 @@
 #include <QString>
 #include <QByteArray>
 #include <QFileInfo>
+#include <QDate>
 
 
 
