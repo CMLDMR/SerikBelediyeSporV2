@@ -21,7 +21,7 @@ using namespace Wt;
 std::unique_ptr<WApplication> createApplication(const WEnvironment& env)
 {
     auto app = Wt::cpp14::make_unique<MainApplication>(env);
-    app->setTitle("Serik Belediye Spor Environment @ " + env.hostName());
+    app->setTitle("Serik Belediye Spor Environment @ ");
     return std::move(app);
 }
 
