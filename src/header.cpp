@@ -80,6 +80,7 @@ void Header::PlaceLogo()
         logoContainer->clicked().connect([=](){
             _ClickAnasayfa.emit(NoClass());
         });
+        logoContainer->decorationStyle().setCursor(Cursor::PointingHand);
 
 }
 
@@ -114,6 +115,8 @@ void Header::PlaceSerik()
                                          +Style::background::position::left_center);
 
         container->setHeight(100);
+        container->decorationStyle().setCursor(Cursor::PointingHand);
+
     }
 
     {
@@ -219,6 +222,7 @@ void Header::PlaceToolBar()
 //        menuContainer->setAttributeValue(Style::style,Style::background::color::rgb(0,30,10));
         menuContainer->setHeight(menuBarHeight);
         menuContainer->addStyleClass("menuBar");
+
 
         auto vLayout = menuContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
         vLayout->addStretch(1);
