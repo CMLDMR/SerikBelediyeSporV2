@@ -398,3 +398,148 @@ void HaberDuyuruCapsItem::setHaberTitle(const std::string &haberTitle)
 
 
 
+
+DuyuruItem::DuyuruItem(bsoncxx::document::view &view_)
+    :view (view_)
+{
+
+
+    addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+    setMargin(5,Side::Bottom);
+    decorationStyle().setCursor(Cursor::PointingHand);
+
+    auto vLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
+
+    try {
+
+        auto value = view["tipi"].get_utf8().value.to_string();
+
+        vLayout->addWidget(cpp14::make_unique<WText>(value),0,AlignmentFlag::Center);
+
+        if( value == "Duyuru" ) setType( DuyuruType::duyuru );
+
+        if( value == "Musabaka" ) setType( DuyuruType::musabaka );
+
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "->in view tipi type is not " << "get_utf8() :"<< e.what() << std::endl;
+    }
+
+
+    if( this->type() == DuyuruType::duyuru )
+    {
+        try {
+            auto value = view["baslik"].get_utf8().value.to_string();
+            auto item = vLayout->addWidget(cpp14::make_unique<WText>(value));
+        } catch (bsoncxx::exception &e) {
+            std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "->in view baslik type is not " << "get_utf8() :"<< e.what() << std::endl;
+        }
+
+        try {
+            auto value = view["_id"].get_oid().value.to_string();
+            this->setOid(value);
+        } catch (bsoncxx::exception &e) {
+        std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view _şd type is not get_oid() :" + std::string(e.what());
+        std::cout << err << std::endl;
+        }
+
+        setAttributeValue(Style::style,Style::background::color::color("#CCEEFF"));
+    }else if ( this->type() == DuyuruType::musabaka ) {
+        setAttributeValue(Style::style,Style::background::color::color("#CCFFDD"));
+
+        try {
+            auto value = view["baslik"].get_utf8().value.to_string();
+            auto item = vLayout->addWidget(cpp14::make_unique<WText>(value));
+        } catch (bsoncxx::exception &e) {
+            std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "->in view baslik type is not " << "get_utf8() :"<< e.what() << std::endl;
+        }
+
+
+
+        auto container = vLayout->addWidget(cpp14::make_unique<WContainerWidget>());
+
+        auto hLayout = container->setLayout(cpp14::make_unique<WHBoxLayout>());
+
+        try {
+            auto value = view["Takim1"].get_utf8().value.to_string();
+            hLayout->addWidget(cpp14::make_unique<WText>(value+" "),0,AlignmentFlag::Right);
+        } catch (bsoncxx::exception &e) {
+            std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Takim1 type is not utf8() :" + std::string(e.what());
+            std::cout << err << std::endl;
+            hLayout->addWidget(cpp14::make_unique<WText>(err));
+        }
+
+
+        try {
+            auto value = view["Takim2"].get_utf8().value.to_string();
+            hLayout->addWidget(cpp14::make_unique<WText>("- "+value),0,AlignmentFlag::Left);
+        } catch (bsoncxx::exception &e) {
+            std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "->in view Takim2 type is not " << "get_utf8() :"<< e.what() << std::endl;
+        }
+
+
+        try {
+            auto value = view["_id"].get_oid().value.to_string();
+            this->setOid(value);
+        } catch (bsoncxx::exception &e) {
+        std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view _şd type is not get_oid() :" + std::string(e.what());
+        std::cout << err << std::endl;
+        }
+
+    }
+
+
+
+
+    this->clicked().connect([=](){
+        this->_ClickDuyuru.emit(this->oid());
+    });
+
+
+
+
+
+}
+
+DuyuruItem::DuyuruType DuyuruItem::type() const
+{
+    return mType;
+}
+
+void DuyuruItem::setType(const DuyuruType &type)
+{
+    mType = type;
+}
+
+Signal<std::string> &DuyuruItem::ClickDuyuru()
+{
+    return _ClickDuyuru;
+}
+
+std::string DuyuruItem::oid() const
+{
+    return mOid;
+}
+
+void DuyuruItem::setOid(const std::string &oid)
+{
+    mOid = oid;
+}
+
+
+
+
+DuyuruDetail::DuyuruDetail(mongocxx::database *_db)
+    :ContainerWidget (_db)
+{
+
+}
+
+std::string DuyuruDetail::oid() const
+{
+    return mOid;
+}
+
+void DuyuruDetail::setOid(const std::string &oid)
+{
+    mOid = oid;
+}

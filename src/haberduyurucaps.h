@@ -76,6 +76,59 @@ private:
 
 
 
+class DuyuruItem : public WContainerWidget
+{
+public:
+    DuyuruItem ( bsoncxx::document::view &view_ ) ;
+
+
+    enum class DuyuruType{
+        duyuru = 0,
+        musabaka
+    };
+
+    DuyuruType type() const;
+    void setType(const DuyuruType &type);
+
+
+    Signal<std::string> &ClickDuyuru();
+
+
+    std::string oid() const;
+    void setOid(const std::string &oid);
+
+private:
+    bsoncxx::document::view view;
+
+
+    DuyuruType mType;
+
+
+    Signal<std::string> _ClickDuyuru;
+
+
+    std::string mOid;
+
+};
+
+
+
+class DuyuruDetail : public ContainerWidget
+{
+public:
+    DuyuruDetail(mongocxx::database* _db);
+
+
+    std::string oid() const;
+    void setOid(const std::string &oid);
+
+private:
+
+    std::string mOid;
+};
+
+
+
 
 
 #endif // HABERDUYURUCAPS_H
