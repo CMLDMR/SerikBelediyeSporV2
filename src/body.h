@@ -13,7 +13,8 @@ public:
     void initHaberList();
 
     void initDuyuru( std::string mOid );
-    void initDirectDuyuru( std::string mOid );
+    void initDirectDuyuru(std::string mOid , WContainerWidget *container);
+    void initDuyuruList( std::string mOid = "" );
 
 
 

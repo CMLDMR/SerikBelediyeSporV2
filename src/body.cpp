@@ -36,7 +36,7 @@ void Body::initBody()
     auto haberDuyuruCaps = mMainContainer->addWidget(cpp14::make_unique<HaberDuyuruCaps>(this->db()));
     haberDuyuruCaps->addStyleClass(Bootstrap::Grid::col_full_12);
     haberDuyuruCaps->ClickHaber().connect(this,&Body::initHaber);
-    haberDuyuruCaps->ClickDuyuru().connect(this,&Body::initDuyuru);
+    haberDuyuruCaps->ClickDuyuru().connect(this,&Body::initDuyuruList);
 
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
@@ -295,18 +295,13 @@ void Body::initHaberList()
 
 void Body::initDuyuru(std::string mOid)
 {
-    this->initDirectDuyuru(mOid);
+    this->initDuyuruList(mOid);
 
     wApp->instance()->setInternalPath(u8"col=Duyurular&oid="+mOid);
 }
 
-void Body::initDirectDuyuru(std::string mOid)
+void Body::initDirectDuyuru(std::string mOid , WContainerWidget* container )
 {
-
-    std::cout << __LINE__ << " " <<__FUNCTION__ << " : "<<mOid << std::endl;
-
-    mMainContainer->clear();
-
 
     auto filter = document{};
 
@@ -322,20 +317,38 @@ void Body::initDirectDuyuru(std::string mOid)
 
 
         if( !val ){
-            std::cout << "Line: " << __LINE__ << " -> No Document Entry";
+            std::cout << "Line: " << __LINE__ << " " << __FILE__ << " " << __FUNCTION__ << " -> No Document Entry";
         }else{
 
             auto view = val.value().view();
 
-            auto container = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+//            auto container = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
             container->addStyleClass(Bootstrap::Grid::col_full_12);
             container->setContentAlignment(AlignmentFlag::Center);
+
+
+            DuyuruItem::DuyuruType tip;
+
+
+            // Duyuru Tipi
+            {
+                try {
+                    auto value = view["tipi"].get_utf8().value.to_string();
+
+                    if( value == "Duyuru" ) tip = DuyuruItem::DuyuruType::duyuru;
+                    if( value == "Musabaka" ) tip = DuyuruItem::DuyuruType::musabaka;
+
+                } catch (bsoncxx::exception &e) {
+                    std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view tipi type is not utf8() :" + std::string(e.what());
+                    std::cout << err << std::endl;
+                }
+            }
 
             // Başlık Kısmı
             {
 
                 auto _Container = container->addWidget(cpp14::make_unique<WContainerWidget>());
-                _Container->setHeight(150);
+                _Container->setHeight(100);
                 _Container->setMaximumSize(1350,WLength::Auto);
 
                 auto imgContainer = _Container->addWidget(cpp14::make_unique<WContainerWidget>());
@@ -347,17 +360,6 @@ void Body::initDirectDuyuru(std::string mOid)
                                                   +Style::background::size::cover
                                                   +Style::background::repeat::norepeat);
 
-//                try {
-//                    auto value = view["habericon"].get_oid().value.to_string();
-//                _Container->setAttributeValue(Style::style,Style::background::url(this->downloadFile(value))
-//                                                      +Style::background::size::cover
-//                                                      +Style::background::repeat::norepeat);
-//                } catch (bsoncxx::exception &e) {
-//                    std::cout << "Line " << __LINE__ << "->in view habericon type is not " << "oid() :"<< e.what() << std::endl;
-//                _Container->setAttributeValue(Style::style,Style::background::url(this->getErroImgPath())
-//                                                      +Style::background::size::cover
-//                                                      +Style::background::repeat::norepeat);
-//                }
 
                 auto vLayout = imgContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
                 auto _title = vLayout->addWidget(cpp14::make_unique<WText>(),0,AlignmentFlag::Center|AlignmentFlag::Middle);
@@ -372,49 +374,129 @@ void Body::initDirectDuyuru(std::string mOid)
 
             }
 
-
-            // İcerikteki Dosyaların indirilmesi
+            if( tip == DuyuruItem::DuyuruType::duyuru )
             {
-
-//                try {
-//                    auto value = view["dosyalar"].get_array().value;
-//                    for( auto item : value )
-//                    {
-//                        this->downloadFile(item.get_oid().value.to_string(),true);
-//                    }
-//                } catch (bsoncxx::exception &e) {
-//                    std::cout << "Line " << __LINE__ << "->in view dosyalar type is not " << "get_array() :"<< e.what() << std::endl;
-//                }
-
+                auto _Container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+                _Container->setHeight(150);
+                _Container->setMaximumSize(1350,WLength::Auto);
+                _Container->setWidth(WLength("100%"));
+                try {
+                    auto value = view["icerik"].get_utf8().value.to_string();
+                    _Container->addWidget(cpp14::make_unique<WText>(value,TextFormat::UnsafeXHTML));
+                } catch (bsoncxx::exception &e) {
+                    std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view icerik type is not utf8() :" + std::string(e.what());
+                    std::cout << err << std::endl;
+                    _Container->addWidget(cpp14::make_unique<WText>(err));
+                }
             }
 
 
-            // İçerik Kısmı
+            if( tip == DuyuruItem::DuyuruType::musabaka )
             {
-                auto _Container = container->addWidget(cpp14::make_unique<WContainerWidget>());
-                _Container->setMaximumSize(1200,WLength::Auto);
-                _Container->setContentAlignment(AlignmentFlag::Justify);
-                _Container->setMargin(20,Side::Top|Side::Bottom);
-                _Container->setPadding(10,AllSides);
-                _Container->setAttributeValue(Style::style,Style::background::color::rgba(155,155,155)+Style::Border::border("1px solid black"));
 
 
-                auto _text = _Container->addWidget(cpp14::make_unique<WText>(" HTML CONTENT " , TextFormat::UnsafeXHTML));
+                auto imgContainer = container->addWidget(cpp14::make_unique<WContainerWidget>());
+
+            imgContainer->setAttributeValue(Style::style,Style::background::url("test/3.jpg")
+                                                  +Style::background::size::cover
+                                                     +Style::background::repeat::norepeat);
+
+            imgContainer->setPadding(10);
+
+                auto backContianer = imgContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+
+                backContianer->setAttributeValue(Style::style,Style::Border::border("1px solid white")+Style::background::color::rgba(0,0,0,0.7));
+
+                // Takım 1 ve Takım 2
+                {
+
+                    auto _Container = backContianer->addWidget(cpp14::make_unique<WContainerWidget>());
 
 
-                try {
-                    auto value = view["icerik"].get_utf8().value.to_string();
-//                    std::cout << "HTML: "<<value << std::endl;
-                    std::cout << "Set TEXT: " << _text->setText(value) << std::endl;
 
-                    _text->setMaximumSize(1024,WLength::Auto);
+                    auto hLayout = _Container->setLayout(cpp14::make_unique<WHBoxLayout>());
 
 
-                } catch (bsoncxx::exception &e) {
-                    std::cout << "Line " << __LINE__ << "->in view html type is not " << "get_utf8() :"<< e.what() << std::endl;
+                    try {
+                        auto value = view["Takim1"].get_utf8().value.to_string();
+                        auto text = hLayout->addWidget(cpp14::make_unique<WText>(value),0,AlignmentFlag::Right);
+                        text->setAttributeValue(Style::style,Style::font::size::s16px+Style::color::rgb("255,255,255")+Style::font::weight::lighter);
+
+                    } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Takim1 type is not utf8() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        hLayout->addWidget(cpp14::make_unique<WText>(err),0,AlignmentFlag::Right);
+                    }
+
+                    try {
+                        auto value = view["Takim2"].get_utf8().value.to_string();
+                        auto text = hLayout->addWidget(cpp14::make_unique<WText>(" - "+value),0,AlignmentFlag::Left);
+                        text->setAttributeValue(Style::style,Style::font::size::s16px+Style::color::rgb("255,255,255")+Style::font::weight::lighter);
+                    } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Takim2 type is not utf8() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        hLayout->addWidget(cpp14::make_unique<WText>(err),0,AlignmentFlag::Left);
+                    }
+
+                    _Container->setMargin(15,Side::Bottom);
+
+
+                }
+
+
+                // Yer
+                {
+                    auto _Container = backContianer->addWidget(cpp14::make_unique<WContainerWidget>());
+                    _Container->setMaximumSize(1200,WLength::Auto);
+                    _Container->setContentAlignment(AlignmentFlag::Center);
+
+                    try {
+                        auto value = view["Yer"].get_utf8().value.to_string();
+                        auto text = _Container->addWidget(cpp14::make_unique<WText>(value));
+                        text->setAttributeValue(Style::style,Style::font::size::s16px+Style::color::rgb("255,255,255")+Style::font::weight::lighter);
+                    } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Yer type is not utf8() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        _Container->addWidget(cpp14::make_unique<WText>(err));
+                    }
+                    _Container->setMargin(15,Side::Bottom);
+                }
+
+
+                // Tarih Saat
+                {
+                    auto _Container = backContianer->addWidget(cpp14::make_unique<WContainerWidget>());
+                    _Container->setMaximumSize(1200,WLength::Auto);
+                    _Container->setContentAlignment(AlignmentFlag::Center);
+                    _Container->setMargin(15,Side::Bottom);
+
+                    try {
+                        auto value = view["Tarih"].get_int64().value;
+                        auto text = _Container->addWidget(cpp14::make_unique<WText>(QDate::fromString(QString::number(value),"yyyyMMdd").toString("dddd dd/MM/yyyy").toStdString()));
+                        text->setAttributeValue(Style::style,Style::font::size::s16px+Style::color::rgb("255,255,255")+Style::font::weight::lighter);
+                        text->setMargin(15,Side::Bottom);
+                    } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Tarih type is not get_int64() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        _Container->addWidget(cpp14::make_unique<WText>(err));
+                    }
+
+                    _Container->addWidget(cpp14::make_unique<WBreak>());
+
+                    try {
+                        auto value = view["Saat"].get_utf8().value.to_string();
+                        auto text = _Container->addWidget(cpp14::make_unique<WText>("Saat: "+value));
+                        text->setAttributeValue(Style::style,Style::font::size::s16px+Style::color::rgb("255,255,255")+Style::font::weight::lighter);
+                    } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in view Saat type is not utf8() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        _Container->addWidget(cpp14::make_unique<WText>(err));
+                    }
+
                 }
 
             }
+
 
         }
 
@@ -423,5 +505,60 @@ void Body::initDirectDuyuru(std::string mOid)
     } catch (mongocxx::exception &e) {
         std::cout << "Line: " << __LINE__ << "  ->" <<e.what() << std::endl;
     }
+
+}
+
+void Body::initDuyuruList( std::string mOid )
+{
+
+    mMainContainer->clear();
+
+
+
+    auto fullContainer = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    fullContainer->addStyleClass(Bootstrap::Grid::col_full_12);
+
+    fullContainer->setMargin(25,Side::Top|Side::Bottom);
+
+    auto fContainer = fullContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    fContainer->addStyleClass(Bootstrap::Grid::container_fluid);
+    fContainer->setContentAlignment(AlignmentFlag::Center);
+
+    auto rContainer = fContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    rContainer->addStyleClass(Bootstrap::Grid::row);
+    rContainer->setMaximumSize(1200,WLength::Auto);
+
+
+
+
+
+
+
+    auto duyuruDetay = rContainer->addWidget(cpp14::make_unique<DuyuruDetail>(this->db()));
+    duyuruDetay->addStyleClass(Bootstrap::Grid::Large::col_lg_9+Bootstrap::Grid::Medium::col_md_8+Bootstrap::Grid::Small::col_sm_8+Bootstrap::Grid::ExtraSmall::col_xs_12);
+
+    if( !mOid.empty() )
+    {
+        this->initDirectDuyuru(mOid,duyuruDetay);
+    }
+
+
+
+    auto listContainer = rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+    listContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_3+Bootstrap::Grid::Medium::col_md_4+Bootstrap::Grid::Small::col_sm_4+Bootstrap::Grid::ExtraSmall::col_xs_12);
+
+
+
+    try {
+        auto cursor = this->db()->collection("Duyurular").find(document{}.view());
+        for( auto doc : cursor )
+        {
+            auto item = listContainer->addWidget(cpp14::make_unique<DuyuruItem>(doc));
+            item->ClickDuyuru().connect(this,&Body::initDuyuruList);
+        }
+    } catch (mongocxx::exception &e) {
+        std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" <<e.what() << std::endl;
+    }
+
 
 }
