@@ -75,6 +75,11 @@ Signal<NoClass> &Header::ClickGaleri()
     return _ClickGaleri;
 }
 
+Signal<NoClass> &Header::ClickHakkinda()
+{
+    return _ClickHakkinda;
+}
+
 void Header::PlaceLogo()
 {
 
@@ -333,6 +338,9 @@ void Header::PlaceToolBar()
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Hakkımızda</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
         text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
+        menuContainer->clicked().connect([=](){
+            this->_ClickHakkinda.emit(NoClass());
+        });
     }
 
 }

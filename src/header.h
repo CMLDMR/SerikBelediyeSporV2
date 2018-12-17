@@ -18,6 +18,8 @@ public:
 
     Signal<NoClass> &ClickGaleri();
 
+    Signal<NoClass> &ClickHakkinda();
+
 private:
 
     void PlaceLogo();
@@ -38,6 +40,8 @@ private:
     Signal<NoClass> _ClickDuyurular;
 
     Signal<NoClass> _ClickGaleri;
+
+    Signal<NoClass> _ClickHakkinda;
 };
 
 #endif // HEADER_H

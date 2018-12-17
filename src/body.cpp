@@ -603,3 +603,42 @@ void Body::initFotoVideoGalery()
     w->addStyleClass(Bootstrap::Grid::col_full_12);
 
 }
+
+void Body::initHakkinda()
+{
+
+    mMainContainer->clear();
+
+
+    auto filter = document{};
+
+
+
+
+    try {
+
+        auto val = this->db()->collection("Hakkinda").find_one(filter.view());
+
+        if( val )
+        {
+
+            auto view = val.value().view();
+
+            auto container = mMainContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+            container->setContentAlignment(AlignmentFlag::Center);
+            container->setMargin(25,Side::Top);
+
+            auto rContainer = container->addWidget(cpp14::make_unique<WContainerWidget>());
+            rContainer->setMaximumSize(1024,WLength::Auto);
+
+            auto text = rContainer->addWidget(cpp14::make_unique<WText>(view["html"].get_utf8().value.to_string(),TextFormat::UnsafeXHTML));
+
+        }
+
+    } catch (mongocxx::exception &e) {
+        std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" <<e.what() << std::endl;
+    }
+
+
+
+}

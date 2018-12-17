@@ -89,6 +89,8 @@ void MainApplication::init()
     mHeader->ClickHaberler().connect(mBody,&Body::initHaberList);
     mHeader->ClickDuyurular().connect([=](){mBody->initDuyuruList();});
     mHeader->ClickGaleri().connect([=](){mBody->initFotoVideoGalery();});
+    mHeader->ClickHakkinda().connect([=](){mBody->initHakkinda();});
+
 
 
 

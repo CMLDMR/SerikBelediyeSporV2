@@ -20,6 +20,9 @@ public:
     void initFotoVideoGalery();
 
 
+    void initHakkinda();
+
+
 
 private:
     WContainerWidget* mMainContainer;
