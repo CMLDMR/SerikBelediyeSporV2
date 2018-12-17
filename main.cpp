@@ -40,7 +40,7 @@ int main()
 
     //--docroot docroot --http-address 192.168.0.31 --http-port 8085 --approot approot --config approot/wt_config.xml
     argv[0] =  (char*)"SerikBelediyeSporWebV2";
-    argv[1] =  (char*)"--http-address=192.168.0.11";
+    argv[1] =  (char*)"--http-address=192.168.0.31";
     argv[2] =  (char*)"--http-port=8084";
 
     argv[3] =  (char*)"--docroot=docroot";
@@ -55,14 +55,14 @@ int main()
 
         Wt::WServer server{argc, argv.get(), WTHTTP_CONFIGURATION};
 
-        Resource resource;
+//        Resource resource;
 
 //        server.addResource(&resource, "/");
 //        server.addResource(&resource, "/${test}");
-        server.addResource(&resource, "/users");
-        server.addResource(&resource, "/users/${user}");
-        server.addResource(&resource, "/users/${user}/posts");
-        server.addResource(&resource, "/users/${user}/posts/${post}");
+//        server.addResource(&resource, "/users");
+//        server.addResource(&resource, "/users/${user}");
+//        server.addResource(&resource, "/users/${user}/posts");
+//        server.addResource(&resource, "/users/${user}/posts/${post}");
 
         server.addEntryPoint(Wt::EntryPointType::Application, createApplication );
 
@@ -75,8 +75,18 @@ int main()
 
 
 
+        if( server.start() ){
+            auto sig = server.waitForShutdown();
 
-        server.run();
+            std::cerr << "Shutdown (signal = " << sig << ")" << std::endl;
+            server.stop();
+
+
+//            server.restart(argc, argv.get(),);
+
+        }
+
+//        server.run();
 
 
 
