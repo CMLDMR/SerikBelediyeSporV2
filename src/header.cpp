@@ -70,6 +70,11 @@ Signal<NoClass> &Header::ClickDuyurular()
 
 }
 
+Signal<NoClass> &Header::ClickGaleri()
+{
+    return _ClickGaleri;
+}
+
 void Header::PlaceLogo()
 {
 
@@ -289,6 +294,9 @@ void Header::PlaceToolBar()
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Galeri</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
         text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
+        menuContainer->clicked().connect([=](){
+            this->_ClickGaleri.emit(NoClass());
+        });
     }
 
     // 5. Taraftar

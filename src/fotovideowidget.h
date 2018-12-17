@@ -23,7 +23,7 @@ private:
 class FotoVideoWidgetItem : public WContainerWidget
 {
 public:
-    FotoVideoWidgetItem(std::string iconPath , std::string year );
+    FotoVideoWidgetItem(std::string iconPath , std::string year , std::string oid);
 
 
 private:
@@ -35,6 +35,10 @@ class FotoVideoGaleri : public ContainerWidget
 {
 public:
     FotoVideoGaleri(mongocxx::database* _db);
+
+
+private:
+    void initFotoVideo(WContainerWidget *rContainer);
 };
 
 

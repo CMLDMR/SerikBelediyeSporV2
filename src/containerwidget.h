@@ -9,6 +9,7 @@
 #include <Wt/WVBoxLayout.h>
 #include <Wt/WHBoxLayout.h>
 #include <Wt/WSignal.h>
+#include <Wt/WApplication.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
