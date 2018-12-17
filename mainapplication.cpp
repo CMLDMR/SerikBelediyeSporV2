@@ -88,6 +88,8 @@ void MainApplication::init()
     mHeader->ClickAnaSayfa().connect(mBody,&Body::initBody);
     mHeader->ClickHaberler().connect(mBody,&Body::initHaberList);
     mHeader->ClickDuyurular().connect([=](){mBody->initDuyuruList();});
+    mHeader->ClickGaleri().connect([=](){mBody->initFotoVideoGalery();});
+
 
 
 

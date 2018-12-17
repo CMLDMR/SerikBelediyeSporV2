@@ -44,6 +44,7 @@ void Body::initBody()
 
     auto fotoVideoWidget = mMainContainer->addWidget(cpp14::make_unique<FotoVideoWidget>(this->db()));
     fotoVideoWidget->addStyleClass(Bootstrap::Grid::col_full_12);
+    fotoVideoWidget->ClickGaleri().connect(this,&Body::initFotoVideoGalery);
 
     auto iletisimWidget = mMainContainer->addWidget(cpp14::make_unique<IletisimWidget>(this->db()));
     iletisimWidget->addStyleClass(Bootstrap::Grid::col_full_12);
@@ -588,5 +589,17 @@ void Body::initDuyuruList( std::string mOid )
         std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" <<e.what() << std::endl;
     }
 
+
+}
+
+void Body::initFotoVideoGalery()
+{
+
+    mMainContainer->clear();
+
+    std::cout << "init Video Foto Galeri" << std::endl;
+
+    auto w = mMainContainer->addWidget(cpp14::make_unique<FotoVideoGaleri>(this->db()));
+    w->addStyleClass(Bootstrap::Grid::col_full_12);
 
 }

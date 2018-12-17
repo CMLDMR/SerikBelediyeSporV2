@@ -17,6 +17,9 @@ public:
     void initDuyuruList( std::string mOid = "" );
 
 
+    void initFotoVideoGalery();
+
+
 
 private:
     WContainerWidget* mMainContainer;
