@@ -17,6 +17,8 @@ public:
     void initDuyuruList( std::string mOid = "" );
 
 
+    void initTakimlar(std::string oid);
+
     void initFotoVideoGalery();
 
 

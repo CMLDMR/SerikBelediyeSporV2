@@ -15,6 +15,7 @@
 #include "inlinestyle.h"
 
 #include <string>
+#include <vector>
 
 
 #include "mongocxx.h"

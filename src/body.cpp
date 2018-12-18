@@ -41,6 +41,7 @@ void Body::initBody()
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
     takimlarWidget->addStyleClass(Bootstrap::Grid::col_full_12);
+    takimlarWidget->ClickTakim().connect(this,&Body::initTakimlar);
 
     auto fotoVideoWidget = mMainContainer->addWidget(cpp14::make_unique<FotoVideoWidget>(this->db()));
     fotoVideoWidget->addStyleClass(Bootstrap::Grid::col_full_12);
@@ -125,6 +126,7 @@ void Body::initDirectHaber(const std::string &mOid)
                 try {
                     auto value = view["baslik"].get_utf8().value.to_string();
                     _title->setText(value);
+                    wApp->setTitle(value + " - @Serik BelediyeSpor");
                 } catch (bsoncxx::exception &e) {
                     std::cout << "Line " << __LINE__ << "->in view baslik type is not " << "get_utf8() :"<< e.what() << std::endl;
                 }
@@ -592,16 +594,21 @@ void Body::initDuyuruList( std::string mOid )
 
 }
 
-void Body::initFotoVideoGalery()
+void Body::initTakimlar(std::string oid)
 {
 
     mMainContainer->clear();
 
-    std::cout << "init Video Foto Galeri" << std::endl;
-
-    auto w = mMainContainer->addWidget(cpp14::make_unique<FotoVideoGaleri>(this->db()));
+    auto w = mMainContainer->addWidget(cpp14::make_unique<TakimlarPage>(this->db(),oid));
     w->addStyleClass(Bootstrap::Grid::col_full_12);
 
+}
+
+void Body::initFotoVideoGalery()
+{
+    mMainContainer->clear();
+    auto w = mMainContainer->addWidget(cpp14::make_unique<FotoVideoGaleri>(this->db()));
+    w->addStyleClass(Bootstrap::Grid::col_full_12);
 }
 
 void Body::initHakkinda()
