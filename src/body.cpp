@@ -6,6 +6,7 @@
 #include "fotovideowidget.h"
 #include "iletisimwidget.h"
 #include "kurumsalpage.h"
+#include "taraftarwidget.h"
 
 
 #include <Wt/WApplication.h>
@@ -38,6 +39,10 @@ void Body::initBody()
     haberDuyuruCaps->addStyleClass(Bootstrap::Grid::col_full_12);
     haberDuyuruCaps->ClickHaber().connect(this,&Body::initHaber);
     haberDuyuruCaps->ClickDuyuru().connect(this,&Body::initDuyuruList);
+
+
+    auto tarafterWidget = mMainContainer->addWidget(cpp14::make_unique<TaraftarWidget>(this->db()));
+    tarafterWidget->addStyleClass(Bootstrap::Grid::col_full_12);
 
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
