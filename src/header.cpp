@@ -91,10 +91,10 @@ void Header::PlaceLogo()
 {
 
     auto logoContainer = mContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
-        logoContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_2
-                                     +Bootstrap::Grid::Medium::col_md_2
-                                 +Bootstrap::Grid::Small::col_sm_3
-                                 +Bootstrap::Grid::ExtraSmall::col_xs_3);
+        logoContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_1
+                                     +Bootstrap::Grid::Medium::col_md_1
+                                 +Bootstrap::Grid::Small::col_sm_2
+                                 +Bootstrap::Grid::ExtraSmall::col_xs_2);
         logoContainer->setHeight(100);
         logoContainer->setAttributeValue(Style::style,Style::background::url("img/logo.png")
                                              +Style::background::repeat::norepeat
@@ -106,16 +106,17 @@ void Header::PlaceLogo()
         });
         logoContainer->decorationStyle().setCursor(Cursor::PointingHand);
 
+
 }
 
 void Header::PlaceSerik()
 {
 
     auto menubarContainer = mContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
-    menubarContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_10
-                                    +Bootstrap::Grid::Medium::col_md_10
-                                    +Bootstrap::Grid::Small::col_sm_9
-                                    +Bootstrap::Grid::ExtraSmall::col_xs_9);
+    menubarContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_11
+                                    +Bootstrap::Grid::Medium::col_md_11
+                                    +Bootstrap::Grid::Small::col_sm_10
+                                    +Bootstrap::Grid::ExtraSmall::col_xs_10);
     menubarContainer->setHeight(100);
 
 
@@ -137,10 +138,13 @@ void Header::PlaceSerik()
 
         container->setAttributeValue(Style::style,Style::background::url("img/text.png")
                                          +Style::background::repeat::norepeat
-                                         +Style::background::position::left_center);
+                                         +Style::background::position::left_center
+                                         +Style::background::size::contain);
 
         container->setHeight(100);
         container->decorationStyle().setCursor(Cursor::PointingHand);
+//        container->addStyleClass("logoContainer");
+
 
     }
 
