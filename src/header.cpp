@@ -56,6 +56,13 @@ Signal<NoClass> &Header::ClickAnaSayfa()
 
 }
 
+Signal<NoClass> &Header::ClickKurumsal()
+{
+
+    return _ClickKurumsal;
+
+}
+
 Signal<NoClass> &Header::ClickHaberler()
 {
 
@@ -238,6 +245,9 @@ void Header::PlaceToolBar()
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("<span style=\"color:white;\">Kurumsal</span>",TextFormat::XHTML),0,AlignmentFlag::Justify);
         text->setAttributeValue(Style::style,Style::font::family::tahoma);
         vLayout->addStretch(1);
+        menuContainer->clicked().connect([=](){
+            this->_ClickKurumsal.emit(NoClass());
+        });
     }
 
     // 2. Haberler

@@ -5,6 +5,7 @@
 #include "takimlarwidget.h"
 #include "fotovideowidget.h"
 #include "iletisimwidget.h"
+#include "kurumsalpage.h"
 
 
 #include <Wt/WApplication.h>
@@ -50,7 +51,14 @@ void Body::initBody()
     auto iletisimWidget = mMainContainer->addWidget(cpp14::make_unique<IletisimWidget>(this->db()));
     iletisimWidget->addStyleClass(Bootstrap::Grid::col_full_12);
 
-//    wApp->setInternalPath("");
+    //    wApp->setInternalPath("");
+}
+
+void Body::initKurumsal()
+{
+    mMainContainer->clear();
+    auto w = mMainContainer->addWidget(cpp14::make_unique<KurumsalPage>(this->db()));
+    w->addStyleClass(Bootstrap::Grid::col_full_12);
 }
 
 void Body::initHaber(std::string mOid)

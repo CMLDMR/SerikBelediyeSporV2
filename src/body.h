@@ -8,6 +8,10 @@ class Body : public ContainerWidget
 public:
     Body(mongocxx::database* _db);
     void initBody();
+
+    void initKurumsal();
+
+
     void initHaber(std::string mOid);
     void initDirectHaber( const std::string& mOid);
     void initHaberList();

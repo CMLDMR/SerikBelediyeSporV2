@@ -12,6 +12,8 @@ public:
 
     Signal<NoClass> &ClickAnaSayfa();
 
+    Signal<NoClass> &ClickKurumsal();
+
     Signal<NoClass> &ClickHaberler();
 
     Signal<NoClass> &ClickDuyurular();
@@ -34,6 +36,8 @@ private:
 
 
     Signal<NoClass> _ClickAnasayfa;
+
+    Signal<NoClass> _ClickKurumsal;
 
     Signal<NoClass> _ClickHaberler;
 

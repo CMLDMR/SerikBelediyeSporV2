@@ -42,7 +42,7 @@ public:
 
         for (;;) {
             std::string buffer;
-            if (!std::getline(request.in(), buffer)) break;
+            if ( !std::getline( request.in() , buffer ) ) break;
             std::cout << "Got: '" << buffer << "'\n";
         }
 

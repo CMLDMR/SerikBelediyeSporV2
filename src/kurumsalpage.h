@@ -3,10 +3,12 @@
 
 #include <QtCore/qglobal.h>
 
+#include "containerwidget.h"
+
 class KurumsalPage : public ContainerWidget
 {
 public:
-KurumsalPage();
+    KurumsalPage( mongocxx::database* _db );
 };
 
 #endif // KURUMSALPAGE_H

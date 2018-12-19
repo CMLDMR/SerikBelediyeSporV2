@@ -90,6 +90,7 @@ void MainApplication::init()
     mHeader->ClickDuyurular().connect([=](){mBody->initDuyuruList();});
     mHeader->ClickGaleri().connect([=](){mBody->initFotoVideoGalery();});
     mHeader->ClickHakkinda().connect([=](){mBody->initHakkinda();});
+    mHeader->ClickKurumsal().connect([=](){mBody->initKurumsal();});
 
 
 

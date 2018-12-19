@@ -19,7 +19,8 @@ SOURCES += \
     src/footer.cpp \
     src/fotovideowidget.cpp \
     src/iletisimwidget.cpp \
-    src/haberdetail.cpp
+    src/haberdetail.cpp \
+    src/kurumsalpage.cpp
 
 
 
@@ -59,7 +60,8 @@ HEADERS += \
     src/footer.h \
     src/fotovideowidget.h \
     src/iletisimwidget.h \
-    src/haberdetail.h
+    src/haberdetail.h \
+    src/kurumsalpage.h
 
 INCLUDEPATH += $$PWD/../../Comman
 DEPENDPATH += $$PWD/../../Comman
