@@ -34,11 +34,20 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
         auto container_ = rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
         container_->addStyleClass(Bootstrap::Grid::col_full_12);
         container_->setContentAlignment(AlignmentFlag::Center);
+//        container_->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::HotPink));
+//        container_->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
         auto container = container_->addWidget(cpp14::make_unique<WContainerWidget>());
         container->setWidth(120);
         container->setHeight(160);
-        container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::HotPink));
+        container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Purple::SlateBlue));
         container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+        auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+        _container->setWidth(WLength("100%"));
+        _container->setHeight(WLength("100%"));
+        _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
         {
             container_->addWidget(cpp14::make_unique<WBreak>());
             auto text = container_->addWidget(cpp14::make_unique<WText>("Ali AKSU"));
@@ -57,8 +66,14 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
         auto container = container_->addWidget(cpp14::make_unique<WContainerWidget>());
         container->setWidth(115);
         container->setHeight(150);
-        container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::DeepPink));
+        container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Purple::Plum));
         container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+        auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+        _container->setWidth(WLength("100%"));
+        _container->setHeight(WLength("100%"));
+        _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
         {
             container_->addWidget(cpp14::make_unique<WBreak>());
             auto text = container_->addWidget(cpp14::make_unique<WText>("Nebi KIR"));
