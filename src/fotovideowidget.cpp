@@ -57,8 +57,11 @@ FotoVideoWidget::FotoVideoWidget(mongocxx::database *_db)
             auto _container = _rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
             _container->addStyleClass(Bootstrap::Grid::Large::col_lg_12+Bootstrap::Grid::Medium::col_md_12+Bootstrap::Grid::Small::col_sm_12+Bootstrap::Grid::ExtraSmall::col_xs_12);
             _container->setContentAlignment(AlignmentFlag::Center);
-            _container->setAttributeValue(Style::style,Style::background::color::rgba(125,125,125));
-            auto text = _container->addWidget(cpp14::make_unique<WText>("Tüm Galeri"));
+            auto container_ = _container->addWidget(cpp14::make_unique<WContainerWidget>());
+            container_->setAttributeValue(Style::style,Style::background::color::rgba(125,125,125));
+            container_->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+            container_->setWidth(250);
+            auto text = container_->addWidget(cpp14::make_unique<WText>("Tüm Galeri"));
             text->setAttributeValue(Style::style,Style::font::size::s20px+Style::font::weight::lighter+Style::color::color(Style::color::White::Azure));
         }
 
