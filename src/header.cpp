@@ -196,7 +196,7 @@ void Header::PlaceSerik()
                                         +Style::color::rgb("25,92,48"));
         }
         {
-            auto text = _vLayout->addWidget(cpp14::make_unique<WText>("0 242 722 22 22"));
+            auto text = _vLayout->addWidget(cpp14::make_unique<WText>("444 9 722"));
             text->setAttributeValue(Style::style,Style::font::size::s14px
                                         +Style::font::weight::bold
                                         +Style::color::rgb("25,92,48"));

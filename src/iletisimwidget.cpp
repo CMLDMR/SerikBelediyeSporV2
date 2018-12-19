@@ -206,7 +206,7 @@ IletisimWidget::IletisimWidget(mongocxx::database *_db)
         }
 
         {
-            auto text = vLayout->addWidget(cpp14::make_unique<WText>("0 242 722 22 22"));
+            auto text = vLayout->addWidget(cpp14::make_unique<WText>("444 9 722"));
             text->setAttributeValue(Style::style,Style::font::weight::normal
                                         +Style::font::size::s14px
                                         +Style::color::color(Style::color::White::Snow));
