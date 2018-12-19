@@ -238,7 +238,7 @@ void Body::initHaberList()
 
         auto titleContainer = rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
         titleContainer->addStyleClass(Bootstrap::Grid::col_full_12);
-        titleContainer->setAttributeValue(Style::style,Style::background::url("img/newsBack.jpg")+Style::background::size::cover);
+        titleContainer->setAttributeValue(Style::style,Style::background::url("img/newsBack.jpg")+Style::background::size::cover+Style::background::position::center_center);
         titleContainer->setHeight(100);
 
         auto nContainer = titleContainer->addWidget(cpp14::make_unique<WContainerWidget>());
