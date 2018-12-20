@@ -307,3 +307,14 @@ std::string Person::getSifre() const
     return err;
     }
 }
+
+bsoncxx::oid Person::getOid() const
+{
+    try {
+        auto value = mView["_id"].get_oid().value;
+        return value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView _id type is not get_oid() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    }
+}

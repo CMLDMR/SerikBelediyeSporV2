@@ -167,6 +167,7 @@ public:
     std::string getIsim() const;
     std::string getTel() const;
     std::string getSifre() const;
+    bsoncxx::oid getOid() const;
 
 
 private:
