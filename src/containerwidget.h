@@ -155,4 +155,26 @@ private:
 
 };
 
+
+
+
+class Person
+{
+public:
+    Person( bsoncxx::document::view &view );
+
+
+    std::string getIsim() const;
+    std::string getTel() const;
+    std::string getSifre() const;
+
+
+private:
+    bsoncxx::document::view mView;
+};
+
+
+
+
+
 #endif // CONTAINERWIDGET_H

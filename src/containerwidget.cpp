@@ -250,3 +250,60 @@ int ContainerWidget::getRandom(int begin, int end)
     std::map<int, int> hist;
     std::uniform_int_distribution<int> dist(begin, end);
 }
+
+Person::Person(bsoncxx::document::view &view)
+    :mView (view)
+{
+
+}
+
+std::string Person::getIsim() const
+{
+    std::string isim;
+    try {
+        auto value = mView["Adı"].get_utf8().value.to_string();
+        isim = value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Adı type is not utf8() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    isim = err;
+    }
+
+    std::string soyisim;
+
+    try {
+        auto value = mView["Soyad"].get_utf8().value.to_string();
+        soyisim = value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Soyad type is not utf8() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    soyisim = err;
+    }
+
+    return isim + " " +soyisim;
+
+}
+
+std::string Person::getTel() const
+{
+    try {
+        auto value = mView["Tel"].get_utf8().value.to_string();
+        return value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Tel type is not utf8() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    return err;
+    }
+}
+
+std::string Person::getSifre() const
+{
+    try {
+        auto value = mView["Şifre"].get_utf8().value.to_string();
+        return value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Şifre type is not utf8() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    return err;
+    }
+}
