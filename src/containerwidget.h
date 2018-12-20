@@ -10,12 +10,16 @@
 #include <Wt/WHBoxLayout.h>
 #include <Wt/WSignal.h>
 #include <Wt/WApplication.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WLineEdit.h>
+#include <Wt/WText.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
 
 #include <string>
 #include <vector>
+#include <memory>
 
 
 #include "mongocxx.h"
@@ -31,7 +35,41 @@
 
 using namespace Wt;
 
-class ContainerWidget : public WContainerWidget
+
+class Person
+{
+
+public:
+
+    Person( bsoncxx::document::view view = bsoncxx::builder::basic::document{}.view() );
+
+    std::string getIsim() const;
+
+    std::string getTel() const;
+
+    std::string getSifre() const;
+
+    bsoncxx::oid getOid() const;
+
+    bool getLogined() const ;
+
+    void setPersonelView( bsoncxx::document::value value );
+
+    void setLogined( bool logined );
+
+private:
+
+    bsoncxx::document::view mView;
+
+    bool mLogined;
+
+};
+
+
+
+
+
+class ContainerWidget : public WContainerWidget , public Person
 {
 public:
     ContainerWidget(mongocxx::database* db_);
@@ -51,6 +89,14 @@ void setBackGroundRGB( int red , int green , int blue );
 void setBackGroundRGBA( int red , int green , int blue , double alpha = 1.0 );
 void setBackGroundRGBRandom( int begin = 0 , int end = 255 );
 void setBackGroundRGBRandomAplha(int alpha = 100 , int begin = 0 , int end = 255 );
+
+
+///
+/// \brief setLogin
+/// \param telnumber
+/// \param pasword
+/// Login Personel Information
+void setLogin( std::string telnumber , std::string pasword );
 
 ///
 /// \brief setBorder
@@ -158,21 +204,6 @@ private:
 
 
 
-class Person
-{
-public:
-    Person( bsoncxx::document::view &view );
-
-
-    std::string getIsim() const;
-    std::string getTel() const;
-    std::string getSifre() const;
-    bsoncxx::oid getOid() const;
-
-
-private:
-    bsoncxx::document::view mView;
-};
 
 
 

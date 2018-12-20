@@ -66,6 +66,46 @@ void ContainerWidget::setBackGroundRGBRandomAplha(int alpha , int begin, int end
 
 }
 
+void ContainerWidget::setLogin(std::string telnumber, std::string pasword)
+{
+
+    auto filter = document{};
+
+    try {
+        filter.append(kvp("Tel",telnumber)) ;
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> filter." << "Tel :"<< e.what() << std::endl;
+    }
+
+    try {
+        filter.append(kvp("Şifre",pasword)) ;
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> filter." << "Şifre :"<< e.what() << std::endl;
+    }
+
+
+    try {
+        auto val = this->db()->collection("Users").find_one(filter.view());
+
+        if( val )
+        {
+            if( val->view().empty() )
+            {
+
+            }else{
+                this->setLogined(true);
+                this->setPersonelView(val.value());
+            }
+        }
+
+    } catch (mongocxx::exception &e) {
+        std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" << e.what() << std::endl;
+    }
+
+
+
+}
+
 void ContainerWidget::setBorder(StandardColor color)
 {
     decorationStyle().setBorder(WBorder(BorderStyle::Solid,BorderWidth::Thick,WColor(color)));
@@ -251,7 +291,7 @@ int ContainerWidget::getRandom(int begin, int end)
     std::uniform_int_distribution<int> dist(begin, end);
 }
 
-Person::Person(bsoncxx::document::view &view)
+Person::Person(bsoncxx::document::view view)
     :mView (view)
 {
 
@@ -317,4 +357,19 @@ bsoncxx::oid Person::getOid() const
     std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView _id type is not get_oid() :" + std::string(e.what());
     std::cout << err << std::endl;
     }
+}
+
+bool Person::getLogined() const
+{
+    return false;
+}
+
+void Person::setPersonelView(bsoncxx::document::value value)
+{
+    mView = value.view();
+}
+
+void Person::setLogined(bool logined)
+{
+    mLogined = logined;
 }
