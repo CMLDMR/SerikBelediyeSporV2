@@ -43,7 +43,7 @@ void Body::initBody()
 
     auto tarafterWidget = mMainContainer->addWidget(cpp14::make_unique<TaraftarWidget>(this->db()));
     tarafterWidget->addStyleClass(Bootstrap::Grid::col_full_12);
-    tarafterWidget->clicked().connect([=](){this->initTaraftarPage();});
+    tarafterWidget->ClickTaraftar().connect([=](){this->initTaraftarPage();});
 
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
