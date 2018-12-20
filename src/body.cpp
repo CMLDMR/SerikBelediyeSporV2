@@ -43,6 +43,7 @@ void Body::initBody()
 
     auto tarafterWidget = mMainContainer->addWidget(cpp14::make_unique<TaraftarWidget>(this->db()));
     tarafterWidget->addStyleClass(Bootstrap::Grid::col_full_12);
+    tarafterWidget->clicked().connect([=](){this->initTaraftarPage();});
 
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
@@ -247,9 +248,7 @@ void Body::initHaberList()
         nContainer->setAttributeValue(Style::style,Style::background::color::rgba(0,0,0));
 
         auto vLayout = nContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
-
         auto text = vLayout->addWidget(cpp14::make_unique<WText>("Haberler"),0,AlignmentFlag::Center|AlignmentFlag::Middle);
-
         text->setAttributeValue(Style::style,Style::color::color(Style::color::White::Snow)+Style::font::family::tahoma+Style::font::size::s18px);
 
     }
@@ -661,4 +660,11 @@ void Body::initHakkinda()
 
 
 
+}
+
+void Body::initTaraftarPage()
+{
+    mMainContainer->clear();
+    auto w = mMainContainer->addWidget(cpp14::make_unique<TaraftarPage>(this->db()));
+    w->addStyleClass(Bootstrap::Grid::col_full_12);
 }

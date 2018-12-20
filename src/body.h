@@ -30,6 +30,10 @@ public:
 
 
 
+    void initTaraftarPage();
+
+
+
 private:
     WContainerWidget* mMainContainer;
 };
