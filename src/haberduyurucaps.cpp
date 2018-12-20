@@ -318,7 +318,7 @@ void HaberDuyuruCapsItem::loadDuyuru()
     auto ContentTitle = vLayout->addWidget(cpp14::make_unique<WText>(this->duyuruBaslik()),0,AlignmentFlag::Center|AlignmentFlag::Middle);
     ContentTitle->setAttributeValue(Style::style,Style::font::size::s24px
                                         +Style::font::weight::bold
-                                        +Style::color::color(Style::color::Orange::DarkOrange));
+                                        +Style::color::color(Style::color::Purple::MediumSlateBlue));
     ContentTitle->addStyleClass("HaberTitleCss");
     vLayout->addStretch(1);
 
