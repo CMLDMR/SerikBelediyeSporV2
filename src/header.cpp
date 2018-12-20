@@ -225,6 +225,7 @@ void Header::PlaceToolBar()
     auto menubarContainer = mContentContainer->addWidget(cpp14::make_unique<WContainerWidget>());
     menubarContainer->addStyleClass(Bootstrap::Grid::col_full_12);
     menubarContainer->setHeight(60);
+    menubarContainer->setAttributeValue(Style::Affix::data_spy,Style::Affix::affix);
 
     auto row = menubarContainer->addWidget(cpp14::make_unique<WContainerWidget>());
     row->addStyleClass(Bootstrap::Grid::row+Bootstrap::ImageShape::img_thumbnail);
