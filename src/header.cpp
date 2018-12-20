@@ -155,7 +155,7 @@ void Header::PlaceSerik()
                                  +Bootstrap::Grid::Small::col_sm_6
                                  +Bootstrap::Grid::ExtraSmall::col_xs_6);
 
-        container->addStyleClass("menubarinfo");
+        container->addStyleClass(Bootstrap::Grid::Hidden::hidden_sm+Bootstrap::Grid::Hidden::hidden_xs);
 
 
 
@@ -187,7 +187,7 @@ void Header::PlaceSerik()
                                  +Bootstrap::Grid::Medium::col_md_3
                                  +Bootstrap::Grid::Small::col_sm_6
                                  +Bootstrap::Grid::ExtraSmall::col_xs_6);
-        container->addStyleClass("menubarinfo");
+        container->addStyleClass(Bootstrap::Grid::Hidden::hidden_sm+Bootstrap::Grid::Hidden::hidden_xs);
 
         auto _vLayout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
 

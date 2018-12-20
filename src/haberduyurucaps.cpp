@@ -23,8 +23,8 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
             auto container = cContainer->addWidget(cpp14::make_unique<HaberDuyuruCapsItem>(this->db(),true));
                 container->addStyleClass(Bootstrap::Grid::Large::col_lg_5
                                          +Bootstrap::Grid::Medium::col_md_5
-                                     +Bootstrap::Grid::Small::col_sm_5
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_5);
+                                     +Bootstrap::Grid::Small::col_sm_6
+                                     +Bootstrap::Grid::ExtraSmall::col_xs_6);
                 container->setHeight(WLength("100%"));
 
                 this->setHaberOid(container->haberOid());
@@ -34,20 +34,13 @@ HaberDuyuruCaps::HaberDuyuruCaps(mongocxx::database *_db)
         }
 
         {
-            auto container = cContainer->addWidget(cpp14::make_unique<ContainerWidget>(this->db()));
-                container->addStyleClass(Bootstrap::Grid::Large::col_lg_2
-                                         +Bootstrap::Grid::Medium::col_md_2
-                                     +Bootstrap::Grid::Small::col_sm_2
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_2);
-                container->setHeight(WLength("0%"));
-        }
-
-        {
             auto container = cContainer->addWidget(cpp14::make_unique<HaberDuyuruCapsItem>(this->db(),false));
                 container->addStyleClass(Bootstrap::Grid::Large::col_lg_5
                                          +Bootstrap::Grid::Medium::col_md_5
-                                     +Bootstrap::Grid::Small::col_sm_5
-                                     +Bootstrap::Grid::ExtraSmall::col_xs_5);
+                                     +Bootstrap::Grid::Small::col_sm_6
+                                     +Bootstrap::Grid::ExtraSmall::col_xs_6
+                                     +Bootstrap::Grid::Offset::Large::col_lg_2
+                                     +Bootstrap::Grid::Offset::Medium::col_md_2);
                 container->setHeight(WLength("100%"));
                 this->setDuyuruOid(container->duyuruOid());
                 container->clicked().connect(this,&HaberDuyuruCaps::emitDuyuruOid);
