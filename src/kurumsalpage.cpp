@@ -104,6 +104,12 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
             container->setHeight(130);
             container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::LightPink));
             container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+            auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+            _container->setWidth(WLength("100%"));
+            _container->setHeight(WLength("100%"));
+            _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
             {
                 container_->addWidget(cpp14::make_unique<WBreak>());
                 auto text = container_->addWidget(cpp14::make_unique<WText>(item.first));
@@ -127,6 +133,13 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
         container->setHeight(130);
         container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::MediumVioletRed));
         container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+        auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+        _container->setWidth(WLength("100%"));
+        _container->setHeight(WLength("100%"));
+        _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
+
         {
             container_->addWidget(cpp14::make_unique<WBreak>());
             auto text = container_->addWidget(cpp14::make_unique<WText>("Bünyamin OKUDAN"));
@@ -160,6 +173,14 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
             container->setHeight(120);
             container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Pink::PaleVioletRed));
             container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+            auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+            _container->setWidth(WLength("100%"));
+            _container->setHeight(WLength("100%"));
+        _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
+
+
             {
                 container_->addWidget(cpp14::make_unique<WBreak>());
                 auto text = container_->addWidget(cpp14::make_unique<WText>(item.first));
@@ -168,6 +189,9 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
                 container_->addWidget(cpp14::make_unique<WBreak>());
                 auto text = container_->addWidget(cpp14::make_unique<WText>(item.second));
             }
+
+            if( item.first == "Yunus ÖZPARLAR") container_->addStyleClass(Bootstrap::Grid::Offset::Large::col_lg_4);
+//            if( item.first == "Cengiz DOĞAN") container_->addStyleClass(Bootstrap::Grid::Offset::Large::col_lg_2);
         }
     }
 
@@ -198,6 +222,12 @@ KurumsalPage::KurumsalPage( mongocxx::database *_db )
             container->setHeight(110);
             container->setAttributeValue(Style::style,Style::background::color::color(Style::color::Purple::Orchid));
             container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+
+            auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+            _container->setWidth(WLength("100%"));
+            _container->setHeight(WLength("100%"));
+        _container->setAttributeValue( Style::style , Style::background::url("img/person.png")+Style::background::size::contain+Style::background::repeat::norepeat+Style::background::position::center_center);
+
             {
                 container_->addWidget(cpp14::make_unique<WBreak>());
                 auto text = container_->addWidget(cpp14::make_unique<WText>(item.first));
