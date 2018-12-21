@@ -277,6 +277,24 @@ mongocxx::database *ContainerWidget::db() const
     return mdb;
 }
 
+void ContainerWidget::ShowMessage(const std::string &title, const std::string &message)
+{
+    auto msg = this->addChild(cpp14::make_unique<WDialog>());
+
+    auto header = msg->titleBar()->addWidget(cpp14::make_unique<WText>(title));
+
+    auto text = msg->contents()->addWidget(cpp14::make_unique<WText>(message,TextFormat::XHTML));
+
+    auto btn = msg->footer()->addWidget(cpp14::make_unique<WPushButton>("Tamam"));
+    btn->addStyleClass(Bootstrap::Button::Warning);
+
+    msg->show();
+
+    btn->clicked().connect([=](){
+        this->removeChild(msg);
+    });
+}
+
 void ContainerWidget::updateStyle()
 {
     std::string str = mLeftSpace+mRightSpace+mTopSpace+mBottomSpace

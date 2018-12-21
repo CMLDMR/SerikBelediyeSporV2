@@ -13,6 +13,8 @@
 #include <Wt/WPushButton.h>
 #include <Wt/WLineEdit.h>
 #include <Wt/WText.h>
+#include <Wt/WDialog.h>
+#include <Wt/WMessageBox.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
@@ -177,6 +179,15 @@ std::string getErroImgPath() const;
 /// \return
 /// get Database pointer indicator
 mongocxx::database* db() const;
+
+
+
+///
+/// \brief ShowMessage
+/// \param title
+/// \param message
+/// Show Message
+void ShowMessage( const std::string &title , const std::string &message );
 
 private:
 
