@@ -15,6 +15,9 @@
 #include <Wt/WText.h>
 #include <Wt/WDialog.h>
 #include <Wt/WMessageBox.h>
+#include <Wt/WTextEdit.h>
+#include <Wt/WDate.h>
+#include <Wt/WTime.h>
 
 #include "bootstrap.h"
 #include "inlinestyle.h"
@@ -22,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <random>
 
 
 #include "mongocxx.h"
@@ -32,6 +36,8 @@
 #include <QByteArray>
 #include <QFileInfo>
 #include <QDate>
+#include <QTime>
+#include <QDateTime>
 
 
 
@@ -44,6 +50,7 @@ class Person
 public:
 
     Person( bsoncxx::document::view view = bsoncxx::builder::basic::document{}.view() );
+    Person( bsoncxx::document::value value = bsoncxx::builder::basic::document{}.extract() );
 
     std::string getIsim() const;
 
@@ -59,9 +66,13 @@ public:
 
     void setLogined( bool logined );
 
+    std::string nickname() const;
+
+    bsoncxx::document::value getPersonelValue() const;
+
 private:
 
-    bsoncxx::document::view mView;
+    bsoncxx::document::value mPersonelValue;
 
     bool mLogined;
 
@@ -74,7 +85,7 @@ private:
 class ContainerWidget : public WContainerWidget , public Person
 {
 public:
-    ContainerWidget(mongocxx::database* db_);
+    ContainerWidget(mongocxx::database* db_ , bsoncxx::document::value PersonelValue_ = document{}.extract() );
 
 ///
 /// \brief addBackGroundImage
@@ -188,6 +199,10 @@ mongocxx::database* db() const;
 /// \param message
 /// Show Message
 void ShowMessage( const std::string &title , const std::string &message );
+
+
+
+int getRandomNumber( int begin = 0 , int end = 999999);
 
 private:
 

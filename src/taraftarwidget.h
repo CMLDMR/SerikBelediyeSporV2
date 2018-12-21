@@ -6,6 +6,11 @@
 
 
 
+class Body;
+class TaraftarItem;
+class PersonalWidget;
+
+
 class TaraftarWidget : public ContainerWidget
 {
 public:
@@ -19,45 +24,6 @@ private:
 
 };
 
-
-
-
-class TaraftarItem : public ContainerWidget
-{
-public:
-    TaraftarItem( mongocxx::database* _db );
-};
-
-
-
-class TaraftarPage : public ContainerWidget
-{
-public:
-    TaraftarPage( mongocxx::database* _db );
-
-
-    void initLoginPage();
-
-    void initRegisterPage();
-
-
-
-private:
-
-};
-
-
-class PersonalWidget : public ContainerWidget
-{
-public:
-    PersonalWidget(mongocxx::database* _db );
-
-
-    Signal<NoClass> &ClickRequestLogin();
-
-private:
-    Signal<NoClass> _ClickRequestLogin;
-};
 
 
 

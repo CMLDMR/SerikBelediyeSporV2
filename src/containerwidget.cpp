@@ -1,8 +1,8 @@
 #include "containerwidget.h"
 #include <random>
 
-ContainerWidget::ContainerWidget(mongocxx::database *db_)
-    :WContainerWidget (),mdb(db_)
+ContainerWidget::ContainerWidget(mongocxx::database *db_, bsoncxx::document::value PersonelValue_)
+    :WContainerWidget (),mdb(db_),Person (PersonelValue_)
 {
 
     mLeftSpace = "";
@@ -10,6 +10,7 @@ ContainerWidget::ContainerWidget(mongocxx::database *db_)
     mTopSpace = "";
     mBottomSpace = "";
     mBackGroundImg = "";
+
 
 
 }
@@ -102,8 +103,6 @@ void ContainerWidget::setLogin(std::string telnumber, std::string pasword)
         std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" << e.what() << std::endl;
     }
 
-
-
 }
 
 void ContainerWidget::setBorder(StandardColor color)
@@ -152,8 +151,6 @@ void ContainerWidget::setBottomSide(int pixel)
     mBottomSpace = "bottom:"+std::to_string(pixel)+"px;";
     updateStyle();
 }
-
-
 
 mongocxx::collection ContainerWidget::collection(const std::string& collectionname)
 {
@@ -299,10 +296,10 @@ void ContainerWidget::updateStyle()
 {
     std::string str = mLeftSpace+mRightSpace+mTopSpace+mBottomSpace
         +mBackGroundImg;
-    setAttributeValue(Style::style,str);
+    setAttributeValue( Style::style , str );
 }
 
-int ContainerWidget::getRandom(int begin, int end)
+int ContainerWidget::getRandom( int begin , int end )
 {
     std::random_device rd;
     std::map<int, int> hist;
@@ -310,42 +307,45 @@ int ContainerWidget::getRandom(int begin, int end)
 }
 
 Person::Person(bsoncxx::document::view view)
-    :mView (view)
+    :mPersonelValue (view)
 {
+    if( mPersonelValue.view().empty() )
+    {
+        setLogined(false);
+    }else{
+        setLogined(true);
+    }
+}
 
+Person::Person(bsoncxx::document::value value)
+    :mPersonelValue(value)
+{
+    if( mPersonelValue.view().empty() )
+    {
+        setLogined(false);
+    }else{
+        setLogined(true);
+    }
 }
 
 std::string Person::getIsim() const
 {
     std::string isim;
     try {
-        auto value = mView["Adı"].get_utf8().value.to_string();
+        auto value = mPersonelValue.view()["AdSoyad"].get_utf8().value.to_string();
         isim = value;
     } catch (bsoncxx::exception &e) {
     std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Adı type is not utf8() :" + std::string(e.what());
     std::cout << err << std::endl;
     isim = err;
     }
-
-    std::string soyisim;
-
-    try {
-        auto value = mView["Soyad"].get_utf8().value.to_string();
-        soyisim = value;
-    } catch (bsoncxx::exception &e) {
-    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Soyad type is not utf8() :" + std::string(e.what());
-    std::cout << err << std::endl;
-    soyisim = err;
-    }
-
-    return isim + " " +soyisim;
-
+    return isim;
 }
 
 std::string Person::getTel() const
 {
     try {
-        auto value = mView["Tel"].get_utf8().value.to_string();
+        auto value = mPersonelValue.view()["Tel"].get_utf8().value.to_string();
         return value;
     } catch (bsoncxx::exception &e) {
     std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Tel type is not utf8() :" + std::string(e.what());
@@ -357,7 +357,7 @@ std::string Person::getTel() const
 std::string Person::getSifre() const
 {
     try {
-        auto value = mView["Şifre"].get_utf8().value.to_string();
+        auto value = mPersonelValue.view()["Şifre"].get_utf8().value.to_string();
         return value;
     } catch (bsoncxx::exception &e) {
     std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView Şifre type is not utf8() :" + std::string(e.what());
@@ -368,26 +368,61 @@ std::string Person::getSifre() const
 
 bsoncxx::oid Person::getOid() const
 {
+
     try {
-        auto value = mView["_id"].get_oid().value;
+        auto value = mPersonelValue.view()["_id"].get_oid().value;
         return value;
     } catch (bsoncxx::exception &e) {
     std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView _id type is not get_oid() :" + std::string(e.what());
     std::cout << err << std::endl;
+    std::cout << bsoncxx::to_json(mPersonelValue.view()) << std::endl;
     }
 }
 
 bool Person::getLogined() const
 {
-    return false;
+    return mLogined;
 }
 
 void Person::setPersonelView(bsoncxx::document::value value)
 {
-    mView = value.view();
+    if( value.view().empty() )
+    {
+        setLogined(false);
+    }else{
+
+        mPersonelValue = value;
+        setLogined(true);
+    }
+
 }
 
 void Person::setLogined(bool logined)
 {
     mLogined = logined;
+}
+
+std::string Person::nickname() const
+{
+    try {
+        auto value = mPersonelValue.view()["nickname"].get_utf8().value.to_string();
+        return value;
+    } catch (bsoncxx::exception &e) {
+    std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in mView nickname type is not get_utf8() :" + std::string(e.what());
+    std::cout << err << std::endl;
+    return err;
+    }
+}
+
+bsoncxx::document::value Person::getPersonelValue() const
+{
+    return mPersonelValue;
+}
+
+int ContainerWidget::getRandomNumber(int begin, int end)
+{
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(begin, end);
+    return dis(gen);
 }

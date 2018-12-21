@@ -21,7 +21,11 @@ SOURCES += \
     src/iletisimwidget.cpp \
     src/haberdetail.cpp \
     src/kurumsalpage.cpp \
-    src/taraftarwidget.cpp
+    src/taraftarwidget.cpp \
+    src/taraftar_src/yenikonu.cpp \
+    src/taraftar_src/taraftaritem.cpp \
+    src/taraftar_src/taraftarpage.cpp \
+    src/taraftar_src/personalwidget.cpp
 
 
 
@@ -63,7 +67,11 @@ HEADERS += \
     src/iletisimwidget.h \
     src/haberdetail.h \
     src/kurumsalpage.h \
-    src/taraftarwidget.h
+    src/taraftarwidget.h \
+    src/taraftar_src/yenikonu.h \
+    src/taraftar_src/taraftaritem.h \
+    src/taraftar_src/taraftarpage.h \
+    src/taraftar_src/personalwidget.h
 
 INCLUDEPATH += $$PWD/../../Comman
 DEPENDPATH += $$PWD/../../Comman

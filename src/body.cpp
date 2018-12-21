@@ -7,6 +7,7 @@
 #include "iletisimwidget.h"
 #include "kurumsalpage.h"
 #include "taraftarwidget.h"
+#include "taraftar_src/taraftarpage.h"
 
 
 #include <Wt/WApplication.h>
@@ -665,6 +666,6 @@ void Body::initHakkinda()
 void Body::initTaraftarPage()
 {
     mMainContainer->clear();
-    auto w = mMainContainer->addWidget(cpp14::make_unique<TaraftarPage>(this->db()));
+    auto w = mMainContainer->addWidget(cpp14::make_unique<TaraftarPage>(this));
     w->addStyleClass(Bootstrap::Grid::col_full_12);
 }
