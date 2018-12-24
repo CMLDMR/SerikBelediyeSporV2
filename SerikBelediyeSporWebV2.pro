@@ -25,7 +25,8 @@ SOURCES += \
     src/taraftar_src/yenikonu.cpp \
     src/taraftar_src/taraftaritem.cpp \
     src/taraftar_src/taraftarpage.cpp \
-    src/taraftar_src/personalwidget.cpp
+    src/taraftar_src/personalwidget.cpp \
+    src/taraftar_src/cevapitem.cpp
 
 
 
@@ -71,7 +72,8 @@ HEADERS += \
     src/taraftar_src/yenikonu.h \
     src/taraftar_src/taraftaritem.h \
     src/taraftar_src/taraftarpage.h \
-    src/taraftar_src/personalwidget.h
+    src/taraftar_src/personalwidget.h \
+    src/taraftar_src/cevapitem.h
 
 INCLUDEPATH += $$PWD/../../Comman
 DEPENDPATH += $$PWD/../../Comman
