@@ -5,6 +5,7 @@
 #include "src/taraftar_src/taraftaritem.h"
 #include "src/taraftarwidget.h"
 #include "src/taraftar_src/personalwidget.h"
+#include "cevapitem.h"
 
 TaraftarPage::TaraftarPage(Body *_mBody)
     :ContainerWidget ( _mBody->db() ) , mBody( _mBody )
@@ -73,7 +74,7 @@ void TaraftarPage::initStartupPage()
         }
 
 
-//        findOptions.limit(12)
+        //        findOptions.limit(12)
         findOptions.sort(sortDoc.view());
 
 
@@ -124,15 +125,273 @@ void TaraftarPage::initItemPage(std::string mOid)
                     {
                         auto container = mContainerWidget->addWidget(cpp14::make_unique<WContainerWidget>());
                         container->setWidth(WLength("100%"));
+                        container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
                         container->setContentAlignment(AlignmentFlag::Center);
-                        auto text = container->addWidget(cpp14::make_unique<WText>(val->view()["baslik"].get_utf8().value.to_string()));
+
+
+
+
+
+                        {
+                            auto _container = container->addWidget(cpp14::make_unique<WContainerWidget>());
+                            _container->addStyleClass(Bootstrap::Grid::container_fluid);
+
+                            auto _rContainer = _container->addWidget(cpp14::make_unique<WContainerWidget>());
+                            _rContainer->addStyleClass(Bootstrap::Grid::row);
+
+
+                            {
+                                auto itemContainer = _rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+                                itemContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_1+Bootstrap::Grid::Medium::col_md_1+Bootstrap::Grid::Small::col_sm_2+Bootstrap::Grid::ExtraSmall::col_xs_12);
+                                itemContainer->setAttributeValue(Style::style,Style::background::color::rgb(131,98,77)+Style::Border::borderRardius("3","3","3","3"));
+                                int artiOy = 0;
+                                int eksiOy = 0;
+
+                                try {
+                                    auto value = val->view()["+oy"].get_int32().value;
+                                    artiOy = value;
+                                    container->addWidget(cpp14::make_unique<WBreak>());
+                                } catch (bsoncxx::exception &e) {
+                                std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() saat type is not utf8() :" + std::string(e.what());
+                                std::cout << err << std::endl;
+                                }
+
+                                try {
+                                    auto value = val->view()["-oy"].get_int32().value;
+                                    eksiOy = value;
+                                    container->addWidget(cpp14::make_unique<WBreak>());
+                                } catch (bsoncxx::exception &e) {
+                                std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() saat type is not utf8() :" + std::string(e.what());
+                                std::cout << err << std::endl;
+                                }
+
+                                auto vLayout = itemContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
+
+                                vLayout->addWidget(cpp14::make_unique<WText>("▲"),0,AlignmentFlag::Center);
+                                auto rateText = vLayout->addWidget(cpp14::make_unique<WText>(std::to_string(artiOy-eksiOy)),0,AlignmentFlag::Center);
+                                if( artiOy > eksiOy )
+                                {
+                                    rateText->setAttributeValue(Style::style,Style::color::color(Style::color::Green::Green));
+                                }else if(artiOy == eksiOy ){
+                                    rateText->setAttributeValue(Style::style,Style::color::color(Style::color::White::Snow));
+                                }else{
+                                    rateText->setAttributeValue(Style::style,Style::color::color(Style::color::Red::Red));
+                                }
+                                vLayout->addWidget(cpp14::make_unique<WText>("▼"),0,AlignmentFlag::Center);
+                            }
+                            {
+                                auto itemContainer = _rContainer->addWidget(cpp14::make_unique<WContainerWidget>());
+                                itemContainer->addStyleClass(Bootstrap::Grid::Large::col_lg_11+Bootstrap::Grid::Medium::col_md_11+Bootstrap::Grid::Small::col_sm_10+Bootstrap::Grid::ExtraSmall::col_xs_12);
+                                auto vLayout = itemContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
+
+
+                                try {
+                                    auto value = val->view()["nick"].get_utf8().value.to_string();
+                                    auto text = vLayout->addWidget(cpp14::make_unique<WText>(value));
+                                } catch (bsoncxx::exception &e) {
+                                std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() nick type is not get_utf8() :" + std::string(e.what());
+                                std::cout << err << std::endl;
+                                }
+
+                                try {
+                                    auto value = val->view()["baslik"].get_utf8().value.to_string();
+                                    auto text = vLayout->addWidget(cpp14::make_unique<WText>(value));
+                                } catch (bsoncxx::exception &e) {
+                                std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() baslik type is not get_utf8() :" + std::string(e.what());
+                                std::cout << err << std::endl;
+                                }
+
+                                try {
+                                    auto value = val->view()["julianDate"].get_int64().value;
+                                    auto text = vLayout->addWidget(cpp14::make_unique<WText>(QDate::fromJulianDay(value).toString("dd/MM/yyyy dddd").toStdString()));
+                                } catch (bsoncxx::exception &e) {
+                                std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() julianDate type is not get_int64() :" + std::string(e.what());
+                                std::cout << err << std::endl;
+                                }
+                            }
+                        }
+
+                        {
+                            try {
+                                auto value = val->view()["html"].get_utf8().value.to_string();
+                                auto text = container->addWidget(cpp14::make_unique<WText>(value,TextFormat::XHTML));
+
+                                container->addWidget(cpp14::make_unique<WBreak>());
+                            } catch (bsoncxx::exception &e) {
+                            std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val->view() html type is not utf8() :" + std::string(e.what());
+                            std::cout << err << std::endl;
+                            }
+                        }
+                    }
+
+                    {
+
+                        bsoncxx::array::view commentList;
+                        bool existComments = false;
+
+                        try {
+                            auto value = val.value().view()["comments"].get_array().value;
+                            commentList = value;
+                            existComments = true;
+                        } catch (bsoncxx::exception &e) {
+                        std::string err =  std::string("File: ") + __FILE__ + std::string(" Line ") + std::to_string(__LINE__) + " Func: " + std::string(__FUNCTION__) + "->in val.value().view() comments type is not get_array() :" + std::string(e.what());
+                        std::cout << err << std::endl;
+                        }
+
+                        if( existComments )
+                        {
+                            for( auto item : commentList )
+                            {
+
+                                auto container = mContainerWidget->addWidget(cpp14::make_unique<WContainerWidget>());
+                                container->setWidth(WLength("100%"));
+                                container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+                                container->setContentAlignment(AlignmentFlag::Center);
+                                container->setMargin(15,Side::Top|Side::Bottom);
+                                container->addWidget(cpp14::make_unique<CevapItem>(this->db(),item.get_document().view()));
+
+                            }
+                        }
+
+
+
+
+
+                    }
+
+                    {
+
+
+                        auto container = mContainerWidget->addWidget(cpp14::make_unique<WContainerWidget>());
+                        container->setWidth(WLength("100%"));
+//                        container->addStyleClass(Bootstrap::ImageShape::img_thumbnail);
+                        container->setContentAlignment(AlignmentFlag::Center);
+                        container->setMargin(15,Side::Top|Side::Bottom);
+                        container->setPadding(10,AllSides);
+
+                        if( this->getLogined() )
+                        {
+                            auto text = container->addWidget(cpp14::make_unique<WText>("Cevap Yaz"));
+                            container->addWidget(cpp14::make_unique<WBreak>());
+                            auto textEdit = container->addWidget(cpp14::make_unique<WTextEdit>());
+                            textEdit->setHeight(250);
+                            container->addWidget(cpp14::make_unique<WBreak>());
+                            container->setAttributeValue(Style::dataoid,val->view()["_id"].get_oid().value.to_string());
+                            auto btn = container->addWidget(cpp14::make_unique<WPushButton>("Ekle"));
+                            btn->addStyleClass(Bootstrap::Button::Primary);
+
+                            btn->clicked().connect([=](){
+
+                                auto filter = document{};
+
+                                try {
+                                    filter.append(kvp("_id",bsoncxx::oid{container->attributeValue(Style::dataoid).toUTF8()})) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> filter." << "_id :"<< e.what() << std::endl;
+                                }
+
+                                auto pushDoc = document{};
+
+                                try {
+                                    pushDoc.append(kvp("saat",QTime::currentTime().toString("hh:mm").toStdString())) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "saat :"<< e.what() << std::endl;
+                                }
+
+                                try {
+                                    pushDoc.append(kvp("julianDate",QDate::currentDate().toJulianDay())) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "julianDate :"<< e.what() << std::endl;
+                                }
+
+                                try {
+                                    pushDoc.append(kvp("yorum",textEdit->text().toUTF8())) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "yorum :"<< e.what() << std::endl;
+                                }
+
+                                try {
+                                    pushDoc.append(kvp("onay",false)) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "onay :"<< e.what() << std::endl;
+                                }
+
+                                try {
+                                    pushDoc.append(kvp("userid",this->getOid())) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "useid :"<< e.what() << std::endl;
+                                }
+
+                                try {
+                                    pushDoc.append(kvp("nick",this->nickname())) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> pushDoc." << "nick :"<< e.what() << std::endl;
+                                }
+
+
+                                auto push = document{};
+
+                                try {
+                                    push.append(kvp("$push",make_document(kvp("comments",pushDoc)))) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> push." << "$push :"<< e.what() << std::endl;
+                                }
+
+
+
+                                try {
+                                    push.append(kvp("$set",make_document(kvp("updated",QDateTime::currentSecsSinceEpoch())))) ;
+                                } catch (bsoncxx::exception &e) {
+                                    std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> push." << "$set :"<< e.what() << std::endl;
+                                }
+
+
+                                try {
+                                    auto upt = this->db()->collection("forum").update_one(filter.view(),push.view());
+
+                                    if( upt )
+                                    {
+                                        if( upt.value().modified_count() )
+                                        {
+                                            this->initItemPage(container->attributeValue(Style::dataoid).toUTF8());
+                                        }
+                                    }
+
+                                } catch (mongocxx::exception &e) {
+                                    std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" <<e.what() << std::endl;
+                                }
+
+
+
+
+
+
+
+
+                            });
+
+
+                        }else{
+                            auto text = container->addWidget(cpp14::make_unique<WText>("Cevap Yazabilmek için Giriş Yapınız"));
+
+                        }
+
+
                     }
 
 
 
+                    {
+                        auto container = mContainerWidget->addWidget(cpp14::make_unique<WContainerWidget>());
+                        container->setWidth(WLength("100%"));
+                        container->setContentAlignment(AlignmentFlag::Center);
+                        auto btn = container->addWidget(cpp14::make_unique<WPushButton>("Geri"));
+                        btn->addStyleClass(Bootstrap::Button::Primary);
 
-
-
+                        btn->clicked().connect([=](){
+                            this->initlistItem();
+                        });
+                    }
 
 
                 }
@@ -503,4 +762,50 @@ void TaraftarPage::initNewKonuPage()
             }
         });
     }
+}
+
+void TaraftarPage::initlistItem()
+{
+    mContainerWidget->clear();
+
+    auto filter = document{};
+
+    // TODO: Kullanımda Açılacak. Deneme Amaaçlı Kapalı
+    //        try {
+    //            filter.append(kvp("onay",true)) ;
+    //        } catch (bsoncxx::exception &e) {
+    //            std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> filter." << "onay :"<< e.what() << std::endl;
+    //        }
+
+
+    mongocxx::options::find findOptions;
+
+    auto sortDoc = document{};
+
+
+    try {
+        sortDoc.append(kvp("updated",-1)) ;
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Line " << __LINE__ << " Func: " << __FUNCTION__ << "-> sortDoc." << "updated :"<< e.what() << std::endl;
+    }
+
+
+    //        findOptions.limit(12)
+    findOptions.sort(sortDoc.view());
+
+
+    try {
+
+        auto cursor = this->db()->collection("forum").find(filter.view(),findOptions);
+
+        for( auto doc : cursor )
+        {
+            auto item = mContainerWidget->addWidget(cpp14::make_unique<TaraftarItem>(this->db(),doc));
+            item->addStyleClass(Bootstrap::Grid::container_fluid);
+            item->ClickTaraftarItem().connect(this,&TaraftarPage::initItemPage);
+        }
+    } catch (mongocxx::exception &e) {
+        std::cout << "Line: " << __LINE__ << " Func: " << __FUNCTION__ << "  ->" <<e.what() << std::endl;
+    }
+
 }

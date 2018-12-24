@@ -23,6 +23,8 @@ public:
 
     void initNewKonuPage();
 
+    void initlistItem();
+
 
 
 private:
