@@ -42,9 +42,9 @@ void Body::initBody()
     haberDuyuruCaps->ClickDuyuru().connect(this,&Body::initDuyuruList);
 
 
-    auto tarafterWidget = mMainContainer->addWidget(cpp14::make_unique<TaraftarWidget>(this->db()));
-    tarafterWidget->addStyleClass(Bootstrap::Grid::col_full_12);
-    tarafterWidget->ClickTaraftar().connect([=](){this->initTaraftarPage();});
+//    auto tarafterWidget = mMainContainer->addWidget(cpp14::make_unique<TaraftarWidget>(this->db()));
+//    tarafterWidget->addStyleClass(Bootstrap::Grid::col_full_12);
+//    tarafterWidget->ClickTaraftar().connect([=](){this->initTaraftarPage();});
 
 
     auto takimlarWidget = mMainContainer->addWidget(cpp14::make_unique<TakimlarWidget>(this->db()));
@@ -666,6 +666,7 @@ void Body::initHakkinda()
 void Body::initTaraftarPage()
 {
     mMainContainer->clear();
-    auto w = mMainContainer->addWidget(cpp14::make_unique<TaraftarPage>(this));
-    w->addStyleClass(Bootstrap::Grid::col_full_12);
+    mMainContainer->addWidget(cpp14::make_unique<WText>("Taraftar Alanı Yakında Eklenecek"));
+//    auto w = mMainContainer->addWidget(cpp14::make_unique<TaraftarPage>(this));
+//    w->addStyleClass(Bootstrap::Grid::col_full_12);
 }
