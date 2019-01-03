@@ -13,7 +13,7 @@ Footer::Footer::Footer()
 
     mMainContainerWidget->addStyleClass(Bootstrap::Grid::row);
     mMainContainerWidget->setContentAlignment(AlignmentFlag::Center);
-    mMainContainerWidget->setAttributeValue(Style::style,Style::background::color::rgb(0,25,0));
+    mMainContainerWidget->setAttributeValue(Style::style,Style::background::color::rgb(0,0,0));
 
 
     {
@@ -67,7 +67,7 @@ Footer::Footer::Footer()
         }
         layout->addWidget(cpp14::make_unique<WText>(" & "));
         {
-            Wt::WLink link = Wt::WLink("https://github.com/CMLDMR/SerikBelediyeSporWeb");
+            Wt::WLink link = Wt::WLink("https://github.com/CMLDMR/SerikBelediyeSporV2/releases");
             link.setTarget(Wt::LinkTarget::NewWindow);
 
             std::unique_ptr<Wt::WAnchor> anchor =
